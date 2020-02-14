@@ -28,7 +28,7 @@ class Item
         $this->$name = $name;
     }
 
-    public function grtName($name)
+    public function getName($name)
     {
         return $this->$name;
     }
