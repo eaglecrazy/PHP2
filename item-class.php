@@ -66,6 +66,7 @@ echo '<br>';
 $game = new Game(0, 'Castlevania', 16, 'компьютерная игра', 'ссылка на фото', 'nes', 'платформер');
 $game->render();
 
+
 //    5. Дан код:
 //class A {
 //    public function foo() {
