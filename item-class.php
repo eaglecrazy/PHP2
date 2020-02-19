@@ -1,16 +1,21 @@
 <?php
-//1. Придумать класс, который описывает любую сущность из предметной области интернет-магазинов: продукт, ценник, посылка и т.п.
-//2. Описать свойства класса из п.1 (состояние).
-//3. Описать поведение класса из п.1 (методы).
-//4. Придумать наследников класса из п.1. Чем они будут отличаться?
+//1. Создать структуру классов ведения товарной номенклатуры.
+//а) Есть абстрактный товар.
+//б) Есть цифровой товар, штучный физический товар и товар на вес.
+//в) У каждого есть метод подсчета финальной стоимости.
+//г) У цифрового товара стоимость постоянная – дешевле штучного товара в два раза. У штучного товара обычная стоимость, у весового – в зависимости от продаваемого количества в килограммах. У всех формируется в конечном итоге доход с продаж.
+//д) Что можно вынести в абстрактный класс, наследование?
+//2. *Реализовать паттерн Singleton при помощи traits.
 
-class Item
+const N = '<br>';
+
+abstract class Item
 {
-    private $id;
-    private $name;
-    private $cost;
-    private $description;
-    private $photo;
+    protected $id;
+    protected $name;
+    protected $cost;
+    protected $description;
+    protected $photo;
 
     const N = '<br>';
 
@@ -40,88 +45,78 @@ class Item
             'cost: ' . $this->cost . self::N .
             'description: ' . $this->description . self::N .
             'photo: ' . $this->photo . self::N;
+    }
 
+    abstract function get_cost();
+
+    abstract function get_profit();
+}
+
+class Thing extends Item
+{
+    function get_cost()
+    {
+        return $this->cost;
+    }
+
+    function get_profit()
+    {
+        return $this->cost * 0.1;
     }
 }
 
-class Game extends Item
+class Digital extends Item
 {
-    private $console_type;
-    private $game_type;
-    function __construct($id, $name, $cost, $description, $photo, $console_type, $game_type)
+    function get_cost()
     {
-        $this->console_type = $console_type;
-        $this->game_type = $game_type;
-        parent::__construct($id, $name, $cost, $description, $photo);
+        return $this->cost / 2;
     }
+
+    function get_profit()
+    {
+        return $this->cost * 0.2;
+    }
+}
+
+class Weighted_goods extends Item
+{
+    private $weight;
+
+    function __construct($id, $name, $cost, $description, $photo, $weight)
+    {
+        parent::__construct($id, $name, $cost, $description, $photo);
+        $this->weight = $weight;
+    }
+
     function render()
     {
         parent::render();
-        echo 'console_type: ' . $this->console_type . self::N . 'game_type: ' . $this->game_type . self::N;
+        echo 'weight: ' . $this->weight . self::N;
+    }
+
+    function get_cost()
+    {
+        return $this->cost * $this->weight;
+    }
+
+    function get_profit()
+    {
+        return $this->cost * 0.25 * $this->weight;
     }
 }
-$item = new Item(0, 'товар', 10, 'описание', 'ссылка на фото');
-$item->render();
-echo '<br>';
-$game = new Game(0, 'Castlevania', 16, 'компьютерная игра', 'ссылка на фото', 'nes', 'платформер');
-$game->render();
 
+$thing = new Thing(0, 'thing', '10', 'thing-description', 'thing-photo');
+$digital = new Digital(1, 'digital', '20', 'digital-description', 'digital-photo');
+$weighted = new Weighted_goods(2, 'weighted', '30', 'weighted-description', 'weighted-photo', 2);
 
-//    5. Дан код:
-//class A {
-//    public function foo() {
-//        static $x = 0;
-//        echo ++$x;
-//    }
-//}
-//$a1 = new A();
-//$a2 = new A();
-//$a1->foo();
-//$a2->foo();
-//$a1->foo();
-//$a2->foo();
-//Что он выведет на каждом шаге? Почему?
+$thing->render();
+echo 'cost = ' . $thing->get_cost() . N;
+echo 'profit = ' . $thing->get_profit() . N . N;
 
-//ОТВЕТ: Код выведет 1234, потому что присваивание статической локальной переменной выполняется только один раз.
+$digital->render();
+echo 'cost = ' . $digital->get_cost() . N;
+echo 'profit = ' . $digital->get_profit() . N . N;
 
-
-
-//    Немного изменим п.5:
-//class A {
-//    public function foo() {
-//        static $x = 0;
-//        echo ++$x;
-//    }
-//}
-//class B extends A {
-//}
-//$a1 = new A();
-//$b1 = new B();
-//$a1->foo();
-//$b1->foo();
-//$a1->foo();
-//$b1->foo();
-//6. Объясните результаты в этом случае.
-
-//ОТВЕТ: Код выведет 1122, так как у класса А и у класса В статические переменные разные.
-
-
-
-
-//7. *Дан код:
-//class A {
-//    public function foo() {
-//        static $x = 0;
-//        echo ++$x;
-//    }
-//}
-//class B extends A {
-//}
-//$a1 = new A;
-//$b1 = new B;
-//$a1->foo();
-//$b1->foo();
-//$a1->foo();
-//$b1->foo();
-//Что он выведет на каждом шаге? Почему?
-//ОТВЕТ: Код такой же как в предыдущеи задании, и вывод будет тот же: 1122
+$weighted->render();
+echo 'cost = ' . $weighted->get_cost() . N;
+echo 'profit = ' . $weighted->get_profit() . N . N;
