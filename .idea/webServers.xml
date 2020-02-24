@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="33524861-b8f3-44c4-aff7-45726c2c65fe" name="php" url="http://php2/">
-        <fileTransfer port="0" accessType="LOCAL" />
+        <fileTransfer port="0" mountedRoot="D:\Programming\Web\OSPanel\domains\PHP2" accessType="MOUNT" />
       </webServer>
     </option>
   </component>
