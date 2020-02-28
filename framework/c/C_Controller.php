@@ -1,1 +1,88 @@
-<?php//// Базовый класс контроллера.//abstract class C_Controller{	// Генерация внешнего шаблона	protected abstract function render();		// Функция отрабатывающая до основного метода	protected abstract function before();		public function Request($action)	{		$this->before();		$this->$action();   //$this->action_index		$this->render();	}		//	// Запрос произведен методом GET?	//	protected function IsGet()	{		return $_SERVER['REQUEST_METHOD'] == 'GET';	}	//	// Запрос произведен методом POST?	//	protected function IsPost()	{		return $_SERVER['REQUEST_METHOD'] == 'POST';	}	//	// Генерация HTML шаблона в строку.	//	protected function Template($fileName, $vars = array())	{		// Установка переменных для шаблона.		foreach ($vars as $k => $v)		{			$$k = $v;		}		// Генерация HTML в строку.		ob_start();		include "$fileName";		return ob_get_clean();		}			// Если вызвали метод, которого нет - завершаем работу	public function __call($name, $params){        die('Не пишите фигню в url-адресе!!!');	}}
+<?php
+//
+// Р‘Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ РєРѕРЅС‚СЂРѕР»Р»РµСЂР°.
+//
+abstract class C_Controller
+{
+    protected $title;        // Р·Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹
+    protected $content;        // СЃРѕРґРµСЂР¶Р°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹
+
+    public function renderPage()
+    {
+        $vars = array('title' => $this->title, 'content' => $this->content);
+        $page = $this->Template('v_index.tmpl', $vars);
+        echo $page;
+    }
+
+    protected function before()
+    {
+        $this->title = 'РќР°Р·РІР°РЅРёРµ СЃР°Р№С‚Р°';
+        $this->content = '';
+    }
+
+    public function Request($action)
+    {
+
+
+        $this->before();
+        $this->$action();   //$this->action_index
+        $this->renderPage();
+    }
+
+    //
+    // Р—Р°РїСЂРѕСЃ РїСЂРѕРёР·РІРµРґРµРЅ РјРµС‚РѕРґРѕРј POST?
+    //
+    protected function IsPost()
+    {
+        return $_SERVER['REQUEST_METHOD'] == 'POST';
+    }
+
+    //
+    // Р“РµРЅРµСЂР°С†РёСЏ HTML С€Р°Р±Р»РѕРЅР° РІ СЃС‚СЂРѕРєСѓ.
+    //
+    protected function Template($fileName, $vars)
+    {
+//		// РЈСЃС‚Р°РЅРѕРІРєР° РїРµСЂРµРјРµРЅРЅС‹С… РґР»СЏ С€Р°Р±Р»РѕРЅР°.
+////		foreach ($vars as $k => $v)
+////		{
+////			$$k = $v;
+////		}
+////
+////		// Р“РµРЅРµСЂР°С†РёСЏ HTML РІ СЃС‚СЂРѕРєСѓ.
+////		ob_start();
+////		include "$fileName";
+////		return ob_get_clean();
+
+
+        try {
+            require_once 'm/twig/Autoloader.php';
+            Twig_Autoloader::register();
+
+            // СѓРєР°Р·С‹РІР°Рµ РіРґРµ С…СЂР°РЅСЏС‚СЃСЏ С€Р°Р±Р»РѕРЅС‹
+            $loader = new Twig_Loader_Filesystem('v-twig');
+
+            // РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј Twig
+            $twig = new Twig_Environment($loader);
+
+            // РїРѕРґРіСЂСѓР¶Р°РµРј С€Р°Р±Р»РѕРЅ
+            $template = $twig->loadTemplate($fileName);
+
+            // РїРµСЂРµРґР°С‘Рј РІ С€Р°Р±Р»РѕРЅ РїРµСЂРµРјРµРЅРЅС‹Рµ Рё Р·РЅР°С‡РµРЅРёСЏ
+            // РІС‹РІРѕРґРёРј СЃС„РѕСЂРјРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРґРµСЂР¶Р°РЅРёРµ
+
+            $content = $template->render($vars);
+            return $content;
+
+        } catch (Exception $e) {
+            die ('ERROR: ' . $e->getMessage());
+        }
+
+
+    }
+
+    // Р•СЃР»Рё РІС‹Р·РІР°Р»Рё РјРµС‚РѕРґ, РєРѕС‚РѕСЂРѕРіРѕ РЅРµС‚ - Р·Р°РІРµСЂС€Р°РµРј СЂР°Р±РѕС‚Сѓ
+    public function __call($name, $params)
+    {
+        die('РќРµ РїРёС€РёС‚Рµ С„РёРіРЅСЋ РІ url-Р°РґСЂРµСЃРµ!!!');
+    }
+}
