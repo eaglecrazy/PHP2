@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <meta content="text/html; charset=Windows-1251" http-equiv="content-type">
+    <link rel="stylesheet" type="text/css" media="screen" href="v/style.css"/>
+</head>
+<body>
+<div id="header">
+    <h1>{{ title }}</h1>
+</div>
+
+<div id="menu">
+    <a href="index.php">Читать текст</a> |
+    <a href="index.php?control=page&action=edit">Редактировать текст</a> |
+    {% if auth %}
+        <a href="index.php?control=user">Выход</a>
+    {% else %}
+        <a href="index.php?control=user">Авторизация</a>
+    {% endif %}
+</div>
+
+<div id="content">{% autoescape false %}{{ content }}{% endautoescape %}</div>
+
+<div id="footer">
+    Все права защищены. Адрес. Телефон.
+</div>
+</body>
+</html>

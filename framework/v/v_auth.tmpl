@@ -1,0 +1,15 @@
+{%  if wrong_password %}
+    <p><b>Неправильный логин или пароль.</b></p>
+{% endif %}
+
+<form method="post">
+    <label>
+        Логин: <input name="login" type="text">
+    </label>
+    <br><br>
+    <label>
+        Пароль: <input name="password" type="password">
+    </label>
+    <br><br>
+    <input type="submit" value="Войти"/>
+</form>
