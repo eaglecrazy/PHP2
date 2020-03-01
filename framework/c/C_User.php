@@ -9,33 +9,60 @@
 
 class C_User extends C_Controller
 {
-
-
     public $auth = false;
-    private $wrong_password = false;
+    public $reg = false;
+    public $reg_error = false;
 
-    public function __construct($login, $password)
+    public function __construct()
     {
-        if ($login && $password && authorisation($login, $password)) {
-            $this->auth = true;
-            set_cookies($login, $password);
-        }
-        //если не пройдена авторизация, но пароль или логин были, то они неправильные
-        //в экшене нужно сообщить об ошибке
-        else if ($login || $password) {
-            $this->wrong_password = true;
+        $login = $_REQUEST['login'];
+        $password = $_REQUEST['password'];
+
+        if ($_REQUEST['action'] == 'enter') {
+            if (authorisation($login, $password) || check_auth())
+                $this->auth = true;
+        } elseif ($_REQUEST['action'] == 'registration' && $login && $password) {
+            $this->reg = registration($login, $password);
+            if (!$this->reg)//если регистрация не прошла
+                $this->reg_error = true;
         }
     }
 
     public function action_auth()
     {
-        $this->title .= AUTH;
-        $this->content = template('v_auth.tmpl', ['wrong_password' => $this->wrong_password]);
+        $this->title .= '::Авторизация';
+        $this->content = template('v_auth.tmpl', ['wrong_password' => $_REQUEST['wrong']]);
     }
 
     public function action_enter()
     {
-        $this->title .= CONST_EXIT;
+        if (!$this->auth)//если авторизация в конструкторе не пройдена
+            header("Location: index.php?control=user&action=auth&wrong=1");
+
+        $this->title .= '::Личный кабинет';
         $this->content = template('v_account.tmpl', ['name' => $_COOKIE['active-user']]);
     }
+
+    public function action_registration()
+    {
+        if ($this->reg) {//регистрация в конструкторе пройдена
+            $this->title .= '::Личный кабинет';
+            $this->content = template('v_account.tmpl', ['name' => $_COOKIE['active-user']]);
+        } else {
+            if (!$this->reg_error) {//первый заход на страницу регистрации
+                $this->title .= '::Регистрация';
+                $this->content = template('v_registration.tmpl');
+            } else {//регистрация не прошла
+                header("Location: index.php?control=user&action=registration&wrong=1");
+            }
+        }
+    }
+
+    public function action_exit()
+    {
+        exit_form_account();
+        header("Location: index.php");
+    }
+
+
 }

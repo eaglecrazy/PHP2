@@ -15,9 +15,11 @@
     <a href="index.php">Читать текст</a> |
     <a href="index.php?control=page&action=edit">Редактировать текст</a> |
     {% if auth %}
-        <a href="index.php?control=user">Выход</a>
+        <a href="index.php?control=user&action=enter">Личный кабинет</a> |
+        <a href="index.php?control=user&action=exit">Выход</a>
     {% else %}
-        <a href="index.php?control=user">Авторизация</a>
+        <a href="index.php?control=user&action=auth">Авторизация</a> |
+        <a href="index.php?control=user&action=registration">Регистрация</a>
     {% endif %}
 </div>
 
