@@ -14,13 +14,11 @@ class C_Index extends C_Controller
     public function action_edit()
     {
         $this->title .= '::Редактирование';
-
         if ($this->isPost()) {
             text_set($_POST['text']);
             header('location: index.php');
             exit();
         }
-
         $text = text_get();
         $this->content = template('v_edit.tmpl', array('text' => $text));
     }

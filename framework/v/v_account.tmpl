@@ -1,2 +1,7 @@
 <h2>Привет, {{ name }}!</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias assumenda at blanditiis culpa dolor dolore doloribus eius eos, eveniet ex expedita hic ipsum iste laborum magni maiores, modi natus neque non obcaecati odio pariatur possimus praesentium provident quam quas quia quisquam, quod rem repellat rerum soluta tempore vero voluptate voluptates voluptatibus. Adipisci error eveniet modi. Amet aperiam autem consequatur dolorum eos fuga iusto molestias officia omnis reprehenderit! Assumenda blanditiis corporis cum esse quia reiciendis voluptatibus! Cum dolores eaque esse excepturi fugit illum in nisi quam sit, totam. Aperiam at atque facilis itaque laboriosam laudantium minima nostrum, reiciendis ut voluptate!</p>
+<p><b>Вы посещали:</b></p>
+<ul>
+{% for page in history %}
+    <li>{{ page }}</li>
+{% endfor %}
+</ul>

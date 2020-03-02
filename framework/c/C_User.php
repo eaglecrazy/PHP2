@@ -40,21 +40,17 @@ class C_User extends C_Controller
             header("Location: index.php?control=user&action=auth&wrong=1");
 
         $this->title .= '::Личный кабинет';
-        $this->content = template('v_account.tmpl', ['name' => $_COOKIE['active-user']]);
+        $this->content = template('v_account.tmpl', ['name' => $_COOKIE['active-user'], 'history' => get_user_history()]);
     }
 
     public function action_registration()
     {
-        if ($this->reg) {//регистрация в конструкторе пройдена
+        if ($this->reg) {//регистрация в конструкторе пройдена, переходим в ЛК
             $this->title .= '::Личный кабинет';
             $this->content = template('v_account.tmpl', ['name' => $_COOKIE['active-user']]);
         } else {
-            if (!$this->reg_error) {//первый заход на страницу регистрации
-                $this->title .= '::Регистрация';
-                $this->content = template('v_registration.tmpl');
-            } else {//регистрация не прошла
-                header("Location: index.php?control=user&action=registration&wrong=1");
-            }
+            $this->title .= '::Регистрация';
+            $this->content = template('v_registration.tmpl', ['reg_error' => $this->reg_error]);
         }
     }
 

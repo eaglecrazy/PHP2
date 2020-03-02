@@ -7,10 +7,14 @@ abstract class C_Controller
 
     protected function renderPage()
     {
+        $auth = check_auth();
+        if($auth)
+            set_user_history($this->title);
+
         $page = template('v_page.tmpl', [
             'title' => $this->title,
             'content' => $this->content,
-            'auth' => check_auth()]);
+            'auth' => $auth]);
         echo $page;
     }
 
