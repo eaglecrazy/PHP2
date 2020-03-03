@@ -1,0 +1,7 @@
+<h2>Привет, {{ name }}!</h2>
+<p><b>Вы посещали:</b></p>
+<ul>
+{% for page in history %}
+    <li>{{ page }}</li>
+{% endfor %}
+</ul>

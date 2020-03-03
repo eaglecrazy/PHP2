@@ -1,0 +1,16 @@
+{%  if reg_error %}
+    <p><b>Такой логин уже существует.</b></p>
+{% endif %}
+
+<form method="post">
+    <input name="action" type="hidden" value="registration">
+    <label>
+        Логин: <input name="login" type="text" required>
+    </label>
+    <br><br>
+    <label>
+        Пароль: <input name="password" type="password" required>
+    </label>
+    <br><br>
+    <input type="submit" value="Зарегистрироваться"/>
+</form>
