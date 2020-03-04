@@ -1,17 +1,16 @@
 <?php
 
-class Controller
+abstract class Controller
 {
-    public $view = 'admin';
-    public $title;
+    protected $view = 'index';
+    protected $title = 'Название страницы';
 
     function __construct()
     {
-        $this->title = Config::get('sitename');
     }
 
     public function index($data)
     {
-        return [];
+        return 'Контроллер';
     }
 }

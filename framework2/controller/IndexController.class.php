@@ -8,12 +8,13 @@ class IndexController extends Controller
     function __construct()
     {
         parent::__construct();
-        $this->title .= ' | Главная';
+        $this->title = 'Магазин "Замок Дракулы"';
     }
 	
 	//метод, который отправляет в представление информацию в виде переменной content_data
 	function index($data){
-        //тут можно сделать объект модели и вывести список товаров
-		 return 'И данные которые вернул контроллер IndexController';
+        return IndexModel::getAllItems();
 	}
+
+
 }

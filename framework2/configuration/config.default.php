@@ -1,7 +1,7 @@
 <?php
 $config['db_user'] = 'root';
 $config['db_password'] = '';
-$config['db_base'] = 'test2';
+$config['db_base'] = 'shop2';
 $config['db_host'] = 'localhost';
 $config['db_port'] = '3306';
 $config['db_charset'] = 'UTF8';
@@ -19,5 +19,3 @@ $config['path_libs'] = $config['path_root'] . '/../lib';
 $config['path_templates'] = $config['path_root'] . '/../templates';
 
 $config['path_logs'] = $config['path_root'] . '/../logs';
-
-$config['sitename'] = 'Интернет-магазин';

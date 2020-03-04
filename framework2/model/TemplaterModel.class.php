@@ -1,13 +1,20 @@
 <?php
 
-abstract class Model
+class TemplaterModel extends Model
 {
-//    protected $data;
-//
-//    public function __construct($data)
-//    {
-//        $this->data = $data;
-//    }
+    static function renderPage($view, $data = [])
+    {
+        //twig 2.12.6-DEV
+        try {
+//            require_once '../vendor/autoload.php';
+            $loader = new \Twig\Loader\FilesystemLoader(Config::get('path_templates'));
+            $twig = new \Twig\Environment($loader);
+            $content = $twig->render($view, $data);
+            return $content;
+        } catch (Exception $e) {
+            die ('ERROR: ' . $e->getMessage());
+        }
+    }
 }
 
 //    protected static $table;

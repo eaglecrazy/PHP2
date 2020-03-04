@@ -1,13 +1,11 @@
 <?php
 
-abstract class Model
+class IndexModel extends Model
 {
-//    protected $data;
-//
-//    public function __construct($data)
-//    {
-//        $this->data = $data;
-//    }
+    public static function getAllItems(){
+        $query = 'SELECT * FROM items ORDER BY datetime';
+        return Db::getInstance()->select($query);
+    }
 }
 
 //    protected static $table;

@@ -16,10 +16,7 @@ class App
         $port = Config::get('db_port');
         $charset = Config::get('db_charset');
         //соединяемся с БД
-        db::getInstance()->Connect($user, $password, $base, $host, $port, $charset);
-
-        //запустим роутер
-
+        Db::getInstance()->connect($user, $password, $base, $host, $port, $charset);
         //проанализируем $_GET['path'], информация сохраниться в $_GET
         self::path_analysis();
         //запустим роутер
@@ -82,8 +79,8 @@ class App
             //Массив data - это массив для использования в любой вьюшке
             $data = [
                 'content_data' => $controller->$methodName($_GET),//получим из метода $methodName контроллера $controller контент
-                'title' => $controller->title,//получим титл
-                'categories' => Category::getCategories(0)  //РАЗОБРАТЬСЯ ЧЁ ЭТО ЗА ФИГНЯ???
+                'title' => $controller->title//получим титл
+//                'categories' => Category::getCategories(0)  //РАЗОБРАТЬСЯ ЧЁ ЭТО ЗА ФИГНЯ???
             ];
 
             //определяем вьюшку которую нужно показать
@@ -91,11 +88,16 @@ class App
 
             //если запрос делается не как аякс
             if (!isset($_GET['asAjax'])) {
+                echo TemplaterModel::renderPage($view, $data);
+
                 //работаем с twig
-                $loader = new Twig_Loader_Filesystem(Config::get('path_templates'));
-                $twig = new Twig_Environment($loader);
-                $template = $twig->loadTemplate($view);
-                echo $template->render($data);
+//                $loader = new Twig_Loader_Filesystem(Config::get('path_templates'));
+//                $twig = new Twig_Environment($loader);
+//                $template = $twig->loadTemplate($view);
+//                echo $template->render($data);
+
+
+
             }
             else
             {//а если это был аякс, то отправим ему данные

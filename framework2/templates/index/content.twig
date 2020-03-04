@@ -1,60 +1,8 @@
 <main class="main">
     <div class="goods-list">
-        <div class="goods-item">
-            <div class="goods-item-heading-wrap">
-                <h3 class="goods-item-heading">Castlevania</h3>
-            </div>
-            <img src="../img/small/castlevania.jpg" width="250" height="156" alt="Castlevania" class="item-image">
-            <p class="goods-item-text">Цена: 128 рублей</p>
-            <a href="item-page.php?id=castlevania" class="button">Подробнее</a>
-        </div>
-        <div class="goods-item">
-            <div class="goods-item-heading-wrap">
-                <h3 class="goods-item-heading">Castlevania Bloodlines</h3>
-            </div>
-            <img src="../img/small/castlevaniabloodlines.jpg" width="250" height="156" alt="Castlevania Bloodlines"
-                 class="item-image">
-            <p class="goods-item-text">Цена: 2048 рублей</p>
-            <a href="item-page.php?id=castlevaniabloodlines" class="button">Подробнее</a>
-        </div>
-        <div class="goods-item">
-            <div class="goods-item-heading-wrap">
-                <h3 class="goods-item-heading">Castlevania Bloodlines (1)</h3>
-            </div>
-            <img src="../img/small/castlevaniabloodlines.jpg" width="250" height="156"
-                 alt="Castlevania Bloodlines (1)" class="item-image">
-            <p class="goods-item-text">Цена: 2048 рублей</p>
-            <a href="item-page.php?id=castlevaniabloodlines_(1)" class="button">Подробнее</a>
-        </div>
-        <div class="goods-item">
-            <div class="goods-item-heading-wrap">
-                <h3 class="goods-item-heading">Castlevania Bloodlines (2)</h3>
-            </div>
-            <img src="../img/small/castlevaniabloodlines.jpg" width="250" height="156"
-                 alt="Castlevania Bloodlines (2)" class="item-image">
-            <p class="goods-item-text">Цена: 2048 рублей</p>
-            <a href="item-page.php?id=castlevaniabloodlines_(2)" class="button">Подробнее</a>
-        </div>
-        <div class="goods-item">
-            <div class="goods-item-heading-wrap">
-                <h3 class="goods-item-heading">Castlevania Bloodlines (3)</h3>
-            </div>
-            <img src="../img/small/castlevaniabloodlines.jpg" width="250" height="156"
-                 alt="Castlevania Bloodlines (3)" class="item-image">
-            <p class="goods-item-text">Цена: 2048 рублей</p>
-            <a href="item-page.php?id=castlevaniabloodlines_(3)" class="button">Подробнее</a>
-        </div>
-        <div class="goods-item">
-            <div class="goods-item-heading-wrap">
-                <h3 class="goods-item-heading">Castlevania Bloodlines (4)</h3>
-            </div>
-            <img src="../img/small/castlevaniabloodlines.jpg" width="250" height="156"
-                 alt="Castlevania Bloodlines (4)" class="item-image">
-            <p class="goods-item-text">Цена: 2048 рублей</p>
-            <a href="item-page.php?id=castlevaniabloodlines_(4)" class="button">Подробнее</a>
-        </div>
-    </div>
-    <div class='button-wrapper'>
-        <button class='button' id='show-more'>Показать ещё</button>
+        {% for good in content_data %}
+            {% include 'index/good.twig' %}
+        {% endfor %}
+
     </div>
 </main>
