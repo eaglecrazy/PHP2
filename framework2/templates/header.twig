@@ -1,13 +1,13 @@
 <header class="header">
     <div class="menuLeft">
-        <a href="../pages/index.php" class="button indexButton">Магазин</a>
+        <a href="{{ header_links.index }}" class="button indexButton">Магазин</a>
         <a href="#" class="button formButton hidden">Обратная связь</a>
     </div>
     <div class="menuRight">
         <form class="searchForm hidden"><input type="text" placeholder="" class="searchInput form-input">
             <button class="button searchButton">Поиск</button>
         </form>
-        <a href="../pages/cart-page.php" class="button headerButton">Корзина</a>
+        <a href="{{ header_links.cart }}" class="button headerButton">Корзина</a>
         <button class="button headerButton" id="button-enter">Вход</button>
     </div>
     <div class="modal hidden" id="modal"></div>

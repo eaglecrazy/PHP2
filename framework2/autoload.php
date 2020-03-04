@@ -9,12 +9,12 @@ function gbStandardAutoload($className)
 {
     //директории где лежат классы
     $dirs = [
-    'controller',
-        'data/migrate',
-        'lib',//нужная папка
-        'lib/smarty',
-        'lib/commands',
-        'model/'
+        'controller',
+//        'data/migrate',
+        'lib',
+//        'lib/smarty',
+//        'lib/commands',
+        'model'
     ];
     $found = false;
     //в каждой директории ищем файл "$className . '.class.php"

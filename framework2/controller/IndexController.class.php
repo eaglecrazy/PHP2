@@ -10,11 +10,21 @@ class IndexController extends Controller
         parent::__construct();
         $this->title = 'Магазин "Замок Дракулы"';
     }
-	
-	//метод, который отправляет в представление информацию в виде переменной content_data
-	function index($data){
+
+    //метод, который отправляет в представление информацию в виде переменной content_data
+    public function index($data){
         return IndexModel::getAllItems();
-	}
+    }
 
+    public function getHeaderLinks(){
+        $links = parent::getHeaderLinks();
+        $links['index'] = '#';
+        return $links;
+    }
 
+    public function getScripts(){
+        return
+            str_replace('@', 'jquery.js', Config::get('js')) .
+            str_replace('@', 'authorisation.js', Config::get('js'));
+    }
 }

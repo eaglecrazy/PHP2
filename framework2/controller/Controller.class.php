@@ -13,4 +13,16 @@ abstract class Controller
     {
         return 'Контроллер';
     }
+
+    public function getHeaderLinks()
+    {
+        return [
+            'index' => Config::get('link_index'),
+            'cart' => Config::get('link_cart')
+        ];
+    }
+
+    public function getScripts(){
+        return '';
+    }
 }

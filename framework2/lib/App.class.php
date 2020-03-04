@@ -24,6 +24,7 @@ class App
     }
 
     //http://site.ru/index.php?path=News/delete/5
+    //http://site.ru/index.php?path=item/5
     //http://php2/framework2/public/index.php?path=index/delete/5
 
     //http://site.ru/index.php
@@ -64,7 +65,6 @@ class App
         }
     }
 
-
     private static function web()
     {
         if (isset($_GET['page'])) {
@@ -78,26 +78,18 @@ class App
             //Ключи данного массива доступны в любой вьюшке
             //Массив data - это массив для использования в любой вьюшке
             $data = [
-                'content_data' => $controller->$methodName($_GET),//получим из метода $methodName контроллера $controller контент
-                'title' => $controller->title//получим титл
+                'content_data' => $controller->$methodName($_GET),
+                'title' => $controller->title,
+                'header_links' => $controller->getHeaderLinks(),
+                'scripts' => $controller->getScripts()
 //                'categories' => Category::getCategories(0)  //РАЗОБРАТЬСЯ ЧЁ ЭТО ЗА ФИГНЯ???
             ];
 
             //определяем вьюшку которую нужно показать
             $view = $controller->view . '/' . $methodName . '.twig';// например "index/index.html"
 
-            //если запрос делается не как аякс
-            if (!isset($_GET['asAjax'])) {
+            if (!isset($_GET['asAjax'])) {//если запрос делается не как аякс
                 echo TemplaterModel::renderPage($view, $data);
-
-                //работаем с twig
-//                $loader = new Twig_Loader_Filesystem(Config::get('path_templates'));
-//                $twig = new Twig_Environment($loader);
-//                $template = $twig->loadTemplate($view);
-//                echo $template->render($data);
-
-
-
             }
             else
             {//а если это был аякс, то отправим ему данные
