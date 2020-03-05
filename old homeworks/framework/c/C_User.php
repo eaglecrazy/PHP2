@@ -21,7 +21,7 @@ class C_User extends C_Controller
         if ($_REQUEST['action'] == 'enter') {
             if (authorisation($login, $password) || check_auth())
                 $this->auth = true;
-        } elseif ($_REQUEST['action'] == 'registration' && $login && $password) {
+        } elseif ($_REQUEST['action'] == 'index.twig' && $login && $password) {
             $this->reg = registration($login, $password);
             if (!$this->reg)//если регистрация не прошла
                 $this->reg_error = true;

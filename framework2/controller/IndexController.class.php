@@ -24,7 +24,7 @@ class IndexController extends Controller
 
     public function getScripts(){
         return
-            str_replace('@', 'jquery.js', Config::get('js')) .
-            str_replace('@', 'authorisation.js', Config::get('js'));
+            str_replace('@', Config::get('js_jquery'), Config::get('js')) .
+            str_replace('@', Config::get('js_authorisation'), Config::get('js'));
     }
 }

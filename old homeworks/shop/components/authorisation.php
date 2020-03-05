@@ -1,4 +1,4 @@
-<?php
+
 echo
 "<button class=\"modal-close\" id=\"modal-close\">X</button>
 <form action=\"../server/authorisation.php\" method=\"POST\" class=\"modal-form\">
@@ -13,4 +13,4 @@ echo
     </fieldset>
     <input type=\"submit\" value=\"войти\" class=\"button\">
 </form>
-<a href=\"../pages/registration-page.php\" class=\"button\" id=\"registration-button\">регистрация</a>";
+<a href=\"../pages/registration.twig-page.php\" class=\"button\" id=\"registration.twig-button\">регистрация</a>";

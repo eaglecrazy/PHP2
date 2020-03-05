@@ -18,6 +18,9 @@ $config['path_templates'] = $config['path_root'] . '/../templates';
 
 $config['js'] = '<script defer src="js/@"></script>';
 
+//скрипты
+$config['js_jquery'] = 'jquery.js';
+$config['js_authorisation'] = 'authorisation.js';
 
 
 //$config['path_public'] = $config['path_root'] . '/../public';

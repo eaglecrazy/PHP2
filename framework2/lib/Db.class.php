@@ -59,7 +59,10 @@ class Db
         return self::sql($sql, $args)->fetchAll();
     }
 
-
+    public static function insert($sql, $args = [])
+    {
+        self::sql($sql, $args);
+    }
 
 
 

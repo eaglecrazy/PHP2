@@ -17,13 +17,13 @@ class CategoriesController extends Controller
                 "id_good" => $data['id']
             ]);
 
-            return $good->getGoodInfo()[0];
-        }
-        else{
-            header("Location: /categories/");
-        }
-
-
+        return $good->getGoodInfo()[0];
     }
+else{
+header("Location: /categories/");
+}
+
+
+}
 }
 ?>
