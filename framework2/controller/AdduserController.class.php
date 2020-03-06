@@ -4,7 +4,7 @@ class AdduserController extends Controller
 {
     function index($data)
     {
-        $result = UserModel::addUser($_POST['login'], $_POST['password']);
+        $result = UserModel::add_user($_POST['login'], $_POST['password']);
         //если не удалось добавить
         if (!$result) {
             //вернём контроллер регистрации, установим флаг ошибки регистрации в нём
@@ -14,7 +14,7 @@ class AdduserController extends Controller
         }
 
         //если всё ок, то нужно перейти на главную страницу
-        $_SESSION['login'] = $_POST['login'];
-        $this->redirection = new IndexController();
+        UserModel::enter_account($_POST['login'], $_POST['password']);
+        header("Location: index.php");
     }
 }

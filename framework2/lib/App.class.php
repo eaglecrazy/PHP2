@@ -8,8 +8,6 @@ class App
         if (!(php_sapi_name() !== 'cli' && isset($_SERVER) && isset($_GET)))
             return;
 
-        session_start();
-
         //получим из конфига данные для коннекта базы
         $user = Config::get('db_user');
         $password = Config::get('db_password');
@@ -19,6 +17,12 @@ class App
         $charset = Config::get('db_charset');
         //соединяемся с БД
         Db::getInstance()->connect($user, $password, $base, $host, $port, $charset);
+
+        //попробуем авторизоваться
+        session_start();
+        if(!isset($_SESSION['login'])){
+            UserModel::try_authorisation();
+        }
 
         //проанализируем $_GET['path'], информация сохраниться в $_GET
         self::path_analysis();

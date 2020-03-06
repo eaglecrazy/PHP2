@@ -14,8 +14,6 @@ $config['link_cart'] = $config['link-index'] . 'path=cart';
 $config['path_root'] = __DIR__;
 $config['path_templates'] = $config['path_root'] . '/../templates';
 
-
-
 $config['js'] = '<script defer src="js/@"></script>';
 
 //скрипты

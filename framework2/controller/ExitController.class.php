@@ -1,11 +1,9 @@
 <?php
-
-
 class ExitController extends Controller
 {
     function index($data)
     {
-        $_SESSION['login'] = null;
-        $this->redirection = new IndexController();
+        UserModel::exit_account();
+        header("Location: index.php");
     }
 }

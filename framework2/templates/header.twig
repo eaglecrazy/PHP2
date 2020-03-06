@@ -1,4 +1,9 @@
 <header class="header">
+    {% if login != null %}
+        <div class="user-info-wrap">
+            <div class="user-info">{{ login }}</div>
+        </div>
+    {% endif %}
     <div class="menuLeft">
         <a href="{{ header_links.index }}" class="button indexButton">Магазин</a>
         <a href="#" class="button formButton hidden">Обратная связь</a>
