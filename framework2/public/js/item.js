@@ -4,7 +4,7 @@ const $button_add = $('.item-info-button');
 const T = 1900;
 
 $button_add.click((e) => {
-    $.get('../server/add-item-to-cart.php?id=' + e.target.id, (page) => {
+    $.get('index.php?path=cart/add/' + e.target.id, (page) => {
         // $modal.addClass('hidden');
         $modal.append(page);
         $modal.fadeIn(0);

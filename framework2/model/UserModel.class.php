@@ -25,6 +25,15 @@ class UserModel extends Model
         return true;
     }
 
+    //получение id клиента
+    public static function get_id()
+    {
+        if(!$_SESSION['login'])
+            return -1;
+        $query = 'SELECT id FROM users WHERE login=:login';
+        return Db::getInstance()->select($query, ['login' => $_SESSION['login']])[0]['id'];
+    }
+
     //установка кук и сессии
     public static function enter_account($login, $password)
     {
@@ -63,6 +72,7 @@ class UserModel extends Model
         }
     }
 
+    //авторизация
     public static function authorisation($login, $password)
     {
         $query = 'SELECT * FROM users WHERE login=:login AND password=:password';

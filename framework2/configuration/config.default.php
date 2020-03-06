@@ -19,6 +19,7 @@ $config['js'] = '<script defer src="js/@"></script>';
 //скрипты
 $config['js_jquery'] = 'jquery.js';
 $config['js_authorisation'] = 'authorisation.js';
+$config['js_item'] = 'item.js';
 
 
 //$config['path_public'] = $config['path_root'] . '/../public';

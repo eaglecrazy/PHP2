@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 04 2020 г., 23:13
+-- Время создания: Мар 06 2020 г., 22:44
 -- Версия сервера: 10.3.13-MariaDB
 -- Версия PHP: 7.3.2
 
@@ -25,47 +25,36 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `items`
+-- Структура таблицы `cart`
 --
 
-CREATE TABLE `items` (
+CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `cost` int(11) NOT NULL,
-  `filename` varchar(255) NOT NULL,
-  `datetime` datetime NOT NULL DEFAULT current_timestamp()
+  `client_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `count` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL DEFAULT -1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `items`
---
-
-INSERT INTO `items` (`id`, `name`, `description`, `cost`, `filename`, `datetime`) VALUES
-(1, 'Castlevania', 'Игра для NES', 16, 'castlevania.jpg', '2020-03-04 13:40:13'),
-(2, 'Castlevania II', 'Игра для NES', 32, 'castlevaniaii.jpg', '2020-03-04 13:41:08'),
-(3, 'Castlevania III', 'Игра для NES', 64, 'castlevaniaiii.jpg', '2020-03-04 13:41:43');
 
 --
 -- Индексы сохранённых таблиц
 --
 
 --
--- Индексы таблицы `items`
+-- Индексы таблицы `cart`
 --
-ALTER TABLE `items`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`);
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
 --
--- AUTO_INCREMENT для таблицы `items`
+-- AUTO_INCREMENT для таблицы `cart`
 --
-ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

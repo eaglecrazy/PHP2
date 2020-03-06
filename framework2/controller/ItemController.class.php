@@ -19,6 +19,7 @@ class ItemController extends Controller
     public function getScripts(){
         return
             str_replace('@', Config::get('js_jquery'), Config::get('js')) .
-            str_replace('@', Config::get('js_authorisation'), Config::get('js'));
+            str_replace('@', Config::get('js_authorisation'), Config::get('js')) .
+            str_replace('@', Config::get('js_item'), Config::get('js'));
     }
 }
