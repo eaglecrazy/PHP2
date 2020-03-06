@@ -1,6 +1,11 @@
 <main class="main"><h2 class="form-heading">Регистрация</h2>
+    {% if content_data.error %}
+        <div class="info-text"><b>Такой логин уже зарегестирирован.</b></div>
+    {% endif %}
     <div class="form-wrap">
+
         <form action="index.php?path=adduser" class="form" method='POST'>
+
             <label for="input-login" class="form-label">Ваш логин:</label>
             <input class="form-add-input" type="text" id="input-login" name="login" required>
             <label for="input-password" class="form-label">Ваш пароль:</label>

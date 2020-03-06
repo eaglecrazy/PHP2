@@ -8,7 +8,11 @@
             <button class="button searchButton">Поиск</button>
         </form>
         <a href="{{ header_links.cart }}" class="button headerButton">Корзина</a>
-        <button class="button headerButton" id="button-enter">Вход</button>
+        {% if login == null %}
+            <button class="button headerButton" id="button-enter">Вход</button>
+        {% else %}
+            <a href="index.php?path=exit" class="button headerButton">Выход</a>
+        {% endif %}
     </div>
     <div class="modal hidden" id="modal"></div>
 </header>

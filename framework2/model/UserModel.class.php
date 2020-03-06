@@ -6,10 +6,9 @@ class UserModel extends Model
     {
         if (self::userExist($login))
             return false;
-        $query = 'INESRT INTO users (login, password, role) VALUES (:login, :password, :role)';
-        Db::getInstance()->insert($query, ['login' => $login, 'password' => $password, 'role'=>$role]);
+        $query = 'INSERT INTO users (login, password, role) VALUES (:login, :password, :role)';
+        Db::getInstance()->insert($query, ['login' => $login, 'password' => $password, 'role' => $role]);
         return true;
-
     }
 
     //проверка существования юзера в БД

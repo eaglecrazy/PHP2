@@ -8,6 +8,8 @@ class App
         if (!(php_sapi_name() !== 'cli' && isset($_SERVER) && isset($_GET)))
             return;
 
+        session_start();
+
         //получим из конфига данные для коннекта базы
         $user = Config::get('db_user');
         $password = Config::get('db_password');
@@ -17,6 +19,7 @@ class App
         $charset = Config::get('db_charset');
         //соединяемся с БД
         Db::getInstance()->connect($user, $password, $base, $host, $port, $charset);
+
         //проанализируем $_GET['path'], информация сохраниться в $_GET
         self::path_analysis();
         //запустим роутер
@@ -75,24 +78,32 @@ class App
             //создадим экземпляр контроллера
             $controller = new $controllerName();
 
-            //Ключи данного массива доступны в любой вьюшке
-            //Массив data - это массив для использования в любой вьюшке
-            $data = [
-                'content_data' => $controller->$methodName($_GET),
-                'title' => $controller->title,
-                'header_links' => $controller->getHeaderLinks(),
-                'scripts' => $controller->getScripts()
-//                'categories' => Category::getCategories(0)  //РАЗОБРАТЬСЯ ЧЁ ЭТО ЗА ФИГНЯ???
-            ];
+            do {
+                $repeat = false;
+                //Ключи данного массива доступны в любой вьюшке
+                //Массив data - это массив для использования в любой вьюшке
+                $data = [
+                    'content_data' => $controller->$methodName($_GET),
+                    'title' => $controller->title,
+                    'header_links' => $controller->getHeaderLinks(),
+                    'scripts' => $controller->getScripts(),
+                    'login' => $controller->login
+                ];
+
+                //если в процессе выполнения $controller->$methodName выяснилось, что нужно использовать другой контроллер
+                if ($controller->redirection) {
+                    $controller = $controller->redirection;
+                    $methodName = 'index';
+                    $repeat = true;
+                }
+            } while ($repeat);
 
             //определяем вьюшку которую нужно показать
             $view = $controller->view . '/' . $methodName . '.twig';// например "index/index.html"
 
             if (!isset($_GET['asAjax'])) {//если запрос делается не как аякс
                 echo TemplaterModel::renderPage($view, $data);
-            }
-            else
-            {//а если это был аякс, то отправим ему данные
+            } else {//а если это был аякс, то отправим ему данные
                 echo json_encode($data);
             }
         }

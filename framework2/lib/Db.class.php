@@ -61,7 +61,9 @@ class Db
 
     public static function insert($sql, $args = [])
     {
-        self::sql($sql, $args);
+        $query = self::$db->prepare($sql);
+        $query->execute($args);
+        return $query;
     }
 
 

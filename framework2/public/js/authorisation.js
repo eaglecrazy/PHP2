@@ -1,4 +1,5 @@
 const $button_enter = $('#button-enter');
+
 const $modal = $('#modal');
 
 $button_enter.click((e) => {

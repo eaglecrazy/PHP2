@@ -491,3 +491,9 @@ body {
     font-size: 30px;
     font-weight: 700;
 }
+
+.info-text{
+    margin-top: 15px;
+    line-height: 30px;
+    font-size: 22px;
+}

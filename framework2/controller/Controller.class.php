@@ -2,16 +2,20 @@
 
 abstract class Controller
 {
-    protected $view = 'index';
-    protected $title = 'Название страницы';
+    public $view = 'index';
+    public $title = '';
+    public $redirection = false;
+    public $login = null;
 
     function __construct()
     {
+        if($_SESSION['login'])
+            $this->login = $_SESSION['login'];
     }
 
     public function index($data)
     {
-        return 'Контроллер';
+        return '';
     }
 
     public function getHeaderLinks()
