@@ -1,0 +1,15 @@
+<main class="main">
+    <div class="cart-wrapper">
+        <div class="cart-items">
+            {% for item in content_data.cart %}
+                {% include 'cart/cartitem.twig' %}
+            {% endfor %}
+        </div>
+        <div class="cart-info"><span class="cart-info-text">Всего товаров:</span>
+            <span class="cart-info-text cart-info-quantity">{{ content_data.total_count }} шт.</span>
+            <span class="cart-info-text">Общая стоимость:</span>
+            <span class="cart-info-text cart-info-price">{{ content_data.total_cost }} руб.</span>
+            <a href="../pages/order-page.php" class="button cart-issue-button">Перейти к оформлению</a>
+        </div>
+    </div>
+</main>

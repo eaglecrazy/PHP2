@@ -5,11 +5,6 @@ class IndexController extends Controller
     public $view_dir = 'index';
     public $title = 'Магазин "Замок Дракулы"';
 
-//    function __construct()
-//    {
-////        parent::__construct();
-//    }
-
     //метод, который отправляет в представление информацию в виде переменной content_data
     public function index($data){
         return IndexModel::getAllItems();

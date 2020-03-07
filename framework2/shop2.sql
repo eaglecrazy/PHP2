@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 06 2020 г., 22:44
--- Версия сервера: 10.3.13-MariaDB
+-- Время создания: Мар 07 2020 г., 20:41
+-- Версия сервера: 5.6.43
 -- Версия PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -33,8 +33,69 @@ CREATE TABLE `cart` (
   `client_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `count` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL DEFAULT -1
+  `order_id` int(11) NOT NULL DEFAULT '-1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `cart`
+--
+
+INSERT INTO `cart` (`id`, `client_id`, `item_id`, `count`, `order_id`) VALUES
+(1, 1, 1, 2, -1),
+(2, 3, 1, 4, -1),
+(7, 3, 2, 23, -1),
+(8, 3, 3, 3, -1),
+(9, 5, 1, 1, -1),
+(10, 5, 2, 2, -1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `items`
+--
+
+CREATE TABLE `items` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `cost` int(11) NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `items`
+--
+
+INSERT INTO `items` (`id`, `name`, `description`, `cost`, `filename`, `datetime`) VALUES
+(1, 'Castlevania', 'Игра для NES', 4, '1-castlevania.jpg', '2020-03-07 13:05:20'),
+(2, 'Castlevania II', 'Игра для NES', 8, '2-castlevaniaii.jpg', '2020-03-07 13:06:15'),
+(3, 'Castlevania III', 'Игра для NES', 16, '3-castlevaniaiii.jpg', '2020-03-07 13:06:25');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `login` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`id`, `login`, `password`, `role`) VALUES
+(1, 'admin', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'admin'),
+(2, 'user', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user'),
+(3, 'master', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user'),
+(4, 'master22', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user'),
+(5, 'Simon', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user'),
+(6, 'Belmont', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user');
 
 --
 -- Индексы сохранённых таблиц
@@ -47,6 +108,19 @@ ALTER TABLE `cart`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `items`
+--
+ALTER TABLE `items`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Индексы таблицы `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -54,7 +128,19 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT для таблицы `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT для таблицы `items`
+--
+ALTER TABLE `items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT для таблицы `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

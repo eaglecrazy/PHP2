@@ -38,12 +38,12 @@ class UserModel extends Model
     public static function enter_account($login, $password)
     {
         $_SESSION['login'] = $_POST['login'];
-        setcookie("$login-login", $login, time() + 3600 * 24 * 7, '/');
-        setcookie("$login-password", $password, time() + 3600 * 24 * 7, '/');
+        setcookie("login-$login", $login, time() + 3600 * 24 * 7, '/');
+        setcookie("password-$login", $password, time() + 3600 * 24 * 7, '/');
         setcookie('active-user', $login, time() + 3600 * 24 * 7, '/');
         $_COOKIE['active-user'] = $login;
-        $_COOKIE["$login-login"] = $login;
-        $_COOKIE["$login-password"] = $password;
+        $_COOKIE["login-$login"] = $login;
+        $_COOKIE["password-$login"] = $password;
     }
 
     //очистка кук и сессии
@@ -63,9 +63,9 @@ class UserModel extends Model
         $active_user = $_COOKIE['active-user'];
 
         //если в куках есть активный юзер и у него есть логин и пароль
-        if ($_COOKIE["$active_user-login"] && $_COOKIE["$active_user-password"]) {
-            $login = $_COOKIE["$active_user-login"];
-            $password = $_COOKIE["$active_user-password"];
+        if ($_COOKIE["login-$active_user"] && $_COOKIE["password-$active_user"]) {
+            $login = $_COOKIE["login-$active_user"];
+            $password = $_COOKIE["password-$active_user"];
 
             if (!self::authorisation($login, $password))
                 self::exit_account();
@@ -84,6 +84,7 @@ class UserModel extends Model
         return true;
     }
 
+    //шифрование пароля
     private static function encryption($str)
     {
         return md5($str . self::SALT);

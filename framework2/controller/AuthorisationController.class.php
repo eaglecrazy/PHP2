@@ -14,6 +14,7 @@ class AuthorisationController extends Controller
             return '';
         }
         //если всё ок, то перезагрузим страницу
+        UserModel::enter_account($_POST['login'], $_POST['password']);
         $str = explode('index.php', $_SERVER['HTTP_REFERER'])[1];
         $link = 'index.php' . $str;
 

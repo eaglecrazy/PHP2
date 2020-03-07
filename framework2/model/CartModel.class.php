@@ -9,7 +9,7 @@ class CartModel extends Model
         //если client_id == -1 то он не зарегистрирован и корзину храним в куках
         if ($client_id == -1) {
             $count = self::get_cart_cookie($item_id);
-            if($count)
+            if ($count)
                 $count++;
             else
                 $count = 1;
@@ -34,15 +34,66 @@ class CartModel extends Model
         return 1;
     }
 
-    private static function set_cart_cookie($id, $count){
+    private static function set_cart_cookie($id, $count)
+    {
         $name = 'cart' . $id;
         setcookie($name, $count, time() + 3600 * 24 * 7, '/');
     }
 
-    private static function get_cart_cookie($id){
+    private static function get_cart_cookie($id)
+    {
         $name = 'cart' . $id;
-        if(isset($_COOKIE[$name]))
+        if (isset($_COOKIE[$name]))
             return $_COOKIE[$name];
         return null;
+    }
+
+    //возвращает массив вида со значениями item_id => count
+    private static function get_all_cart_cookies()
+    {
+        $result = [];
+        foreach ($_COOKIE as $name => $value) {
+            if (strpos($name, 'cart') === 0) {
+                $item_id = str_replace('cart', '', $name);
+                $result[$item_id] = $value;
+            }
+        }
+        ksort($result);
+        return $result;
+    }
+
+    //возвращает массив с данными для построения старнички "корзина"
+    public static function get_items()
+    {
+        $cart = [];
+        //выясняем id клиента
+        $client_id = UserModel::get_id();
+
+        //если client_id == -1 то он не зарегистрирован и корзину храним в куках
+        if ($client_id == -1) {
+            $id_count = self::get_all_cart_cookies();
+            foreach ($id_count as $item_id => $count) {
+                $query = 'SELECT name, cost, filename  FROM items WHERE id=:id';
+                $result = Db::getInstance()->select($query, ['id' => $item_id])[0];
+                $result['count'] = $count;
+                $result['total_item_cost'] = $result['count'] * $result['cost'];
+                $cart[] = $result;
+            }
+        }
+        return $cart;
+        //фоточка, имя, цена,
+        //количество
+    }
+
+    //возвращает массив с количеством покупок и общей стоимостью
+    public static function get_total_count_cost($cart)
+    {
+        $total_cost = 0;
+        $total_count = 0;
+        foreach ($cart as $item) {
+            $total_cost += $item['cost'] * $item['count'];
+            $total_count += $item['count'];
+        }
+        return ['total_cost' => $total_cost, 'total_count' => $total_count];
     }
 }

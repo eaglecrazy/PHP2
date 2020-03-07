@@ -8,7 +8,7 @@ $config['db_charset'] = 'UTF8';
 
 //ссылки
 $config['link_index'] = 'index.php';
-$config['link_cart'] = $config['link-index'] . 'path=cart';
+$config['link_cart'] = $config['link-index'] . '?path=cart';
 
 //пути
 $config['path_root'] = __DIR__;
