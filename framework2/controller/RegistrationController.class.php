@@ -2,11 +2,17 @@
 
 class RegistrationController extends Controller
 {
-    public $view = 'registration';
+    public $view_dir = 'registration';
     public $title = 'Регистрация';
     public $reg_error = false;
 
     function index($data){
+        return ['error' => $this->reg_error];
+    }
+
+    function error($data){
+        $this->reg_error = true;
+        $this->view_name = 'index';
         return ['error' => $this->reg_error];
     }
 

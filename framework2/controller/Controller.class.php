@@ -2,10 +2,11 @@
 
 abstract class Controller
 {
-    public $view = 'index';
+    public $view_dir = 'index';
+    public $view_name = 'index';
     public $title = '';
-    public $redirection = false;
     public $login = null;
+
 
     function __construct()
     {
@@ -28,5 +29,9 @@ abstract class Controller
 
     public function getScripts(){
         return '';
+    }
+
+    public function getView(){
+        return $this->view_dir . '/' . $this->view_name . '.twig';// например "index/index.html"
     }
 }

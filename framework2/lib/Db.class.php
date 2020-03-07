@@ -61,31 +61,12 @@ class Db
 
     public static function insert($sql, $args = [])
     {
-        $query = self::$db->prepare($sql);
-        $query->execute($args);
-        return $query;
+        self::sql($sql, $args);
     }
 
+    public static function update($sql, $args = [])
+    {
+        self::sql($sql, $args);
+    }
 
-
-    /*
-     * Выполнить запрос к БД
-     */
-//    public function Query($query, $params = array())
-//    {
-//        $res = $this->db->prepare($query);
-//        $res->execute($params);
-//        return $res;
-//    }
-
-    /*
-     * Выполнить запрос с выборкой данных
-     */
-//    public function Select($query, $params = array())
-//    {
-//        $result = $this->Query($query, $params);
-//        if ($result) {
-//            return $result->fetchAll();
-//        }
-//    }
 }

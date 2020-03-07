@@ -2,14 +2,13 @@
 
 class IndexController extends Controller
 {
-    public $view = 'index';
-    public $title;
+    public $view_dir = 'index';
+    public $title = 'Магазин "Замок Дракулы"';
 
-    function __construct()
-    {
-        parent::__construct();
-        $this->title = 'Магазин "Замок Дракулы"';
-    }
+//    function __construct()
+//    {
+////        parent::__construct();
+//    }
 
     //метод, который отправляет в представление информацию в виде переменной content_data
     public function index($data){

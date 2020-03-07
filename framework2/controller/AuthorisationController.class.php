@@ -2,8 +2,7 @@
 
 class AuthorisationController extends Controller
 {
-    public $view = 'authorisation';
-    public $title = '';
+    public $view_dir = 'authorisation';
 
     function index($data)
     {
@@ -11,7 +10,7 @@ class AuthorisationController extends Controller
             return '';
 
         if (!UserModel::authorisation($_POST['login'], $_POST['password'])) {
-            $this->view = 'authorisation_error';
+            $this->view_name = 'authorisation_error';
             return '';
         }
         //если всё ок, то перезагрузим страницу
@@ -22,8 +21,9 @@ class AuthorisationController extends Controller
 
     }
 
-    public function getHeaderLinks()
-    {
-        return [];
+    public function getScripts(){
+        return
+            str_replace('@', Config::get('js_jquery'), Config::get('js')) .
+            str_replace('@', Config::get('js_authorisation'), Config::get('js'));
     }
 }

@@ -20,7 +20,7 @@ class App
 
         //попробуем авторизоваться
         session_start();
-        if(!isset($_SESSION['login'])){
+        if (!isset($_SESSION['login'])) {
             UserModel::try_authorisation();
         }
 
@@ -77,36 +77,25 @@ class App
         if (isset($_GET['page'])) {
             //строим имя контроллера типа IndexController
             $controllerName = ucfirst($_GET['page']) . 'Controller';
-            //строим имя метода, по умолчанию метод index
-            $methodName = isset($_GET['action']) ? $_GET['action'] : 'index';
             //создадим экземпляр контроллера
             $controller = new $controllerName();
+            //строим имя метода, по умолчанию метод index
+            //контроллер в процессе выполнения $methodName может изменить $controller->view_name, чтобы показать правильную вьюшку
+            $controller->view_name = $methodName = isset($_GET['action']) ? $_GET['action'] : 'index';
 
-            do {
-                $repeat = false;
-                //Ключи данного массива доступны в любой вьюшке
-                //Массив data - это массив для использования в любой вьюшке
-                $data = [
-                    'content_data' => $controller->$methodName($_GET),
-                    'title' => $controller->title,
-                    'header_links' => $controller->getHeaderLinks(),
-                    'scripts' => $controller->getScripts(),
-                    'login' => $controller->login
-                ];
 
-                //если в процессе выполнения $controller->$methodName выяснилось, что нужно использовать другой контроллер
-                if ($controller->redirection) {
-                    $controller = $controller->redirection;
-                    $methodName = 'index';
-                    $repeat = true;
-                }
-            } while ($repeat);
-
-            //определяем вьюшку которую нужно показать
-            $view = $controller->view . '/' . $methodName . '.twig';// например "index/index.html"
+            //Ключи данного массива доступны в любой вьюшке
+            //Массив data - это массив для использования в любой вьюшке
+            $data = [
+                'content_data' => $controller->$methodName($_GET),
+                'title' => $controller->title,
+                'header_links' => $controller->getHeaderLinks(),
+                'scripts' => $controller->getScripts(),
+                'login' => $controller->login
+            ];
 
             if (!isset($_GET['asAjax'])) {//если запрос делается не как аякс
-                echo TemplaterModel::renderPage($view, $data);
+                echo TemplaterModel::renderPage($controller->getView(), $data);
             } else {//а если это был аякс, то отправим ему данные
                 echo json_encode($data);
             }

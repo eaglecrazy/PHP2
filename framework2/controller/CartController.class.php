@@ -2,8 +2,8 @@
 
 class CartController extends Controller
 {
-    public $view = 'index';
     public $title = '';
+    public $view_dir = 'cart';
 
     function index($data)
     {
@@ -12,7 +12,7 @@ class CartController extends Controller
 
     function add($data)
     {
-        CartModel::add_item($data['id']);
+        return CartModel::add_item($data['id']);
     }
 
     public function getHeaderLinks()

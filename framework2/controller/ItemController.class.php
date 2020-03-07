@@ -2,8 +2,7 @@
 
 class ItemController extends Controller
 {
-    public $view = 'item';
-    public $title;
+    public $view_dir = 'item';
 
     //метод, который отправляет в представление информацию в виде переменной content_data
     function index($data){
