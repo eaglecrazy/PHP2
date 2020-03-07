@@ -28,4 +28,10 @@ class CartController extends Controller
         $links['cart'] = '#';
         return $links;
     }
+
+    public function getScripts(){
+        return
+            str_replace('@', Config::get('js_jquery'), Config::get('js')) .
+            str_replace('@', Config::get('js_authorisation'), Config::get('js'));
+    }
 }

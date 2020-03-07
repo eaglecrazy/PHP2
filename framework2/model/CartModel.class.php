@@ -79,10 +79,17 @@ class CartModel extends Model
                 $result['total_item_cost'] = $result['count'] * $result['cost'];
                 $cart[] = $result;
             }
+            //если клиент есть в БД
+        } else {
+            $query =
+            'SELECT C.count, I.name, I.cost, I.filename FROM cart AS C INNER JOIN items AS I ON C.item_id = I.id WHERE C.client_id=:client_id AND C.order_id=:order_id ORDER BY I.name';
+            $result = Db::getInstance()->select($query, ['client_id' => $client_id, 'order_id' => -1]);
+            foreach ($result as $cart_item){
+                $cart_item['total_item_cost'] = $cart_item['count'] * $cart_item['cost'];
+                $cart[] = $cart_item;
+            }
         }
         return $cart;
-        //фоточка, имя, цена,
-        //количество
     }
 
     //возвращает массив с количеством покупок и общей стоимостью
