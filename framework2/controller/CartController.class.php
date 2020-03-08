@@ -31,6 +31,13 @@ class CartController extends Controller
         return CartModel::delete_item($data['id']);
     }
 
+    //изменяет количество предмета в корзине
+    public function edit($data){
+        $this->is_ajax = true;
+        $title = '';
+        return CartModel::edit_item($data['id'], $data['count']);
+    }
+
     public function getHeaderLinks()
     {
         if($this->is_ajax)

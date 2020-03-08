@@ -49,6 +49,27 @@ class CartModel extends Model
         return self::get_total_count_cost_edit_delete($client_id);
     }
 
+    //изменяем количетсво товара в корзине
+    public static function edit_item($item_id, $item_count)
+    {
+        //выясняем id клиента
+        $client_id = UserModel::get_id();
+        if ($client_id == -1)
+            //если client_id == -1 то он не зарегистрирован и корзину храним в куках
+            self::set_cart_cookie($item_id, $item_count);
+        else
+            //иначе корзину храним в БД
+            self::edit_cart_db($client_id, $item_id, $item_count);
+
+        return self::get_total_count_cost_edit_delete($client_id);
+    }
+
+    //редактируем количество в ДБ
+    private static function edit_cart_db($client_id, $item_id, $item_count){
+        $query = 'UPDATE cart SET count=:item_count WHERE client_id=:client_id AND item_id=:item_id AND order_id=:order_id';
+        Db::getInstance()->update($query, ['item_count'=>$item_count, 'client_id'=>$client_id, 'item_id'=>$item_id, 'order_id'=> -1]);
+    }
+
     //удаляем запись из ДБ
     private static function delete_cart_db($client_id, $item_id)
     {
@@ -70,6 +91,7 @@ class CartModel extends Model
     private static function set_cart_cookie($id, $count)
     {
         $name = 'cart' . $id;
+        $_COOKIE[$name] = $count;
         setcookie($name, $count, time() + 3600 * 24 * 7, '/');
     }
 
