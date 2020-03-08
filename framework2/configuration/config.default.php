@@ -20,6 +20,7 @@ $config['js'] = '<script defer src="js/@"></script>';
 $config['js_jquery'] = 'jquery.js';
 $config['js_authorisation'] = 'authorisation.js';
 $config['js_item'] = 'item.js';
+$config['js_cart'] = 'cart.js';
 
 
 //$config['path_public'] = $config['path_root'] . '/../public';

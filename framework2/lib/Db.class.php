@@ -69,4 +69,9 @@ class Db
         self::sql($sql, $args);
     }
 
+    public static function delete($sql, $args = [])
+    {
+        self::sql($sql, $args);
+    }
+
 }
