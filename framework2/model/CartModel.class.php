@@ -118,7 +118,7 @@ class CartModel extends Model
         return $result;
     }
 
-    //возвращает массив с данными для построения старнички "корзина"
+    //возвращает массив с данными для построения старничек "корзина" и "заказ"
     public static function get_items()
     {
         $cart = [];

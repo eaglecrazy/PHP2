@@ -16,8 +16,8 @@ $('.cart-item-cross').click((e) => {
         success: (answer) => {
             $('#' + id).remove();
             const result = JSON.parse(answer);
-            const total_count = result['total_count'];
-            const total_cost = result['total_cost'];
+            const total_count = result['content_data']['total_count'];
+            const total_cost = result['content_data']['total_cost'];
             $('.cart-info-quantity').text(total_count + ' шт.');
             $('.cart-info-price').text(total_cost + ' руб.');
 
@@ -54,8 +54,8 @@ $('.cart-item-quantity').change((e) => {
         data: data,
         success: (answer) => {
             const result = JSON.parse(answer);
-            const total_count = result['total_count'];
-            const total_cost = result['total_cost'];
+            const total_count = result['content_data']['total_count'];
+            const total_cost = result['content_data']['total_cost'];
             //изменим цену и количество по всей корзине
             $('.cart-info-quantity').text(total_count + ' шт.');
             $('.cart-info-price').text(total_cost + ' руб.');

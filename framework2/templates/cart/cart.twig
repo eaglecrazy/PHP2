@@ -9,7 +9,9 @@
             <span class="cart-info-text cart-info-quantity">{{ content_data.total_count }} шт.</span>
             <span class="cart-info-text">Общая стоимость:</span>
             <span class="cart-info-text cart-info-price">{{ content_data.total_cost }} руб.</span>
-            <a href="../pages/order-page.php" class="button cart-issue-button">Перейти к оформлению</a>
+            {% if content_data.cart is not empty %}
+                <a href="index.php?path=order" class="button cart-issue-button">Перейти к оформлению</a>
+            {% endif %}
         </div>
     </div>
 </main>

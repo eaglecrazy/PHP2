@@ -125,6 +125,7 @@ body {
     border-radius: 3px;
     display: inline-block;
     margin: 15px 0;
+    min-width: 250px;
 }
 
 .header .searchInput {
@@ -157,10 +158,10 @@ body {
 }
 
 
-.form-add-input {
+.order-form .form-add-input {
     display: block;
     margin: 0 0 0 15px;
-    width: 400px;
+    width: 420px;
     resize: none;
 }
 
@@ -399,7 +400,7 @@ body {
 
 .order-button {
     margin: 15px;
-    width: 406px;
+    width: 420px;
 }
 
 .order-end {
@@ -462,7 +463,6 @@ body {
     position: relative;
     height: 31px;
     box-sizing: border-box;
-
 }
 
 .form-add-input:focus {
@@ -607,3 +607,19 @@ body {
 .cart-item-cross:active {
     transform: scale(1);
 }
+
+.order-textarea{
+    height: 100px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
