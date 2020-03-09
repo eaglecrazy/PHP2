@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 07 2020 г., 20:41
--- Версия сервера: 5.6.43
+-- Время создания: Мар 09 2020 г., 14:45
+-- Версия сервера: 10.3.13-MariaDB
 -- Версия PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -33,7 +33,7 @@ CREATE TABLE `cart` (
   `client_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `count` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL DEFAULT '-1'
+  `order_id` int(11) NOT NULL DEFAULT -1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -41,12 +41,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `client_id`, `item_id`, `count`, `order_id`) VALUES
-(1, 1, 1, 2, -1),
-(2, 3, 1, 4, -1),
-(7, 3, 2, 23, -1),
-(8, 3, 3, 3, -1),
-(9, 5, 1, 1, -1),
-(10, 5, 2, 2, -1);
+(21, 1, 1, 2, -1),
+(23, 1, 2, 1, -1);
 
 -- --------------------------------------------------------
 
@@ -60,7 +56,7 @@ CREATE TABLE `items` (
   `description` text NOT NULL,
   `cost` int(11) NOT NULL,
   `filename` varchar(255) NOT NULL,
-  `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `datetime` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -91,11 +87,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `login`, `password`, `role`) VALUES
 (1, 'admin', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'admin'),
-(2, 'user', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user'),
-(3, 'master', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user'),
-(4, 'master22', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user'),
-(5, 'Simon', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user'),
-(6, 'Belmont', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user');
+(2, 'user', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user');
 
 --
 -- Индексы сохранённых таблиц
@@ -128,7 +120,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT для таблицы `items`
