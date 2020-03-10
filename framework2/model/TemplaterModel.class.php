@@ -1,6 +1,6 @@
 <?php
 
-class TemplaterModel extends Model
+class TemplaterModel
 {
     static function renderPage($view, $data = [])
     {

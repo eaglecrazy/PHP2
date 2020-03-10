@@ -4,8 +4,9 @@ const $button_add = $('.item-info-button');
 const T = 1900;
 
 $button_add.click((e) => {
+    if($modal.text())
+        return;
     $.get('index.php?path=cart/add/' + e.target.id, (page) => {
-        // $modal.addClass('hidden');
         $modal.append(page);
         $modal.fadeIn(0);
         $modal.fadeOut(T);

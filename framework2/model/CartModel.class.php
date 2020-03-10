@@ -1,6 +1,6 @@
 <?php
 
-class CartModel extends Model
+class CartModel
 {
     //добавляем товар в корзину
     public static function add_item($item_id)

@@ -2,7 +2,7 @@
 $('.cart-item-cross').click((e) => {
     const id = e.target.id.replace('cross-', '');
 
-    data = {
+    const data = {
         'asAjax': true,
         'path': 'cart/delete',
         'id': id

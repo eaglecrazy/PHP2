@@ -19,7 +19,9 @@ class OrderController extends Controller
 
     //добавление заказа в БД
     public function add($data){
-        echo $data;
+        if(isset($_POST['login']) && isset($_POST['password'])){
+            echo 1;
+        }
     }
 
     public function getHeaderLinks()

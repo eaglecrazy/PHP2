@@ -160,8 +160,8 @@ body {
 
 .order-form .form-add-input {
     display: block;
-    margin: 0 0 0 15px;
-    width: 420px;
+    margin: 0 15px 0 15px;
+    width: 95%;
     resize: none;
 }
 
@@ -176,7 +176,7 @@ body {
 
 .form-heading {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 30px;
     margin: 5px 15px;
 }
 
@@ -301,6 +301,7 @@ body {
 
 .modal {
     position: fixed;
+    z-index: 1;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -100%);
@@ -400,7 +401,7 @@ body {
 
 .order-button {
     margin: 15px;
-    width: 420px;
+    width: 95%;
 }
 
 .order-end {
@@ -457,7 +458,6 @@ body {
 
 .form-add-input {
     border: solid #989898 1px;
-    width: 200px;
     font-size: 16px;
     padding: 5px;
     position: relative;
@@ -488,10 +488,7 @@ body {
 }
 
 
-.form-heading {
-    font-size: 30px;
-    font-weight: 700;
-}
+
 
 .info-text{
     margin-top: 15px;

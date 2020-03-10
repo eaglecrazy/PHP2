@@ -1,6 +1,6 @@
 <?php
 
-class IndexModel extends Model
+class IndexModel
 {
     public static function getAllItems(){
         $query = 'SELECT * FROM items ORDER BY datetime';

@@ -1,6 +1,6 @@
 <?php
 
-class UserModel extends Model
+class UserModel
 {
     private const SALT = 'asdg452sdacvdfb3q54r';
 

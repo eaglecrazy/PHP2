@@ -1,0 +1,8 @@
+<div class="goods-item">
+    <div class="goods-item-heading-wrap">
+        <h3 class="goods-item-heading">{{ item.name }}</h3>
+    </div>
+    <img src="../templates/img/small/{{ item.filename }}" width="250" height="156" alt="{{ item.name }}" class="item-image">
+    <p class="goods-item-text">Цена: {{ item.cost }} руб.</p>
+    <a href="index.php?path=item/{{ item.id }}" class="button">Подробнее</a>
+</div>

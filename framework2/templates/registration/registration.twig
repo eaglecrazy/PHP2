@@ -4,13 +4,13 @@
     {% endif %}
     <div class="form-wrap">
 
-        <form action="index.php?path=adduser" class="form" method='POST'>
+        <form action="index.php?path=user/add_user" class="form" method='POST'>
 
             <label for="input-login" class="form-label">Ваш логин:</label>
             <input class="form-add-input" type="text" id="input-login" name="login" required>
             <label for="input-password" class="form-label">Ваш пароль:</label>
             <input class="form-add-input" type="password" id="input-password" name="password" required>
-            <input type="submit" class="button form-button" value="Отправить">
+            <input type="submit" class="button form-button" value="Отправить" id="button-registration">
         </form>
     </div>
 </main>
