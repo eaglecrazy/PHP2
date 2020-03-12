@@ -5,7 +5,7 @@ const T = 1900;
 
 $button_add.click((e) => {
     if($modal.text())
-        return;
+        $modal.text('');
     $.get('index.php?path=cart/add/' + e.target.id, (page) => {
         $modal.append(page);
         $modal.fadeIn(0);

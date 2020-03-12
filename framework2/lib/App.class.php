@@ -94,7 +94,7 @@ class App
                 'login' => $controller->login
             ];
 
-            if (!isset($_GET['asAjax'])) {//если запрос делается не как аякс
+            if (!isset($_REQUEST['asAjax'])) {//если запрос делается не как аякс
                 echo TemplaterModel::renderPage($controller->getView(), $data);
             } else {//а если это был аякс, то отправим ему данные
                 echo json_encode($data);

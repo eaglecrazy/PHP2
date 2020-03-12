@@ -2,25 +2,28 @@
 
 class UserController extends Controller
 {
-    public $reg_error = false;
+
+    public $title = '';
 
     function add_user($data)
     {
         $result = UserModel::add_user($_POST['login'], $_POST['password']);
         //если не удалось добавить
         if (!$result) {
-            header("Location: index.php?path=registration/error");
-            return;
+            $this->view_name = 'error';
+            $this->view_dir = 'registration';
+            return false;
         }
 
-        //если всё ок, то нужно перейти на главную страницу
+        //если всё ок, то отправим ОК
         UserModel::enter_account($_POST['login'], $_POST['password']);
-        header("Location: index.php");
+        die('OK');
     }
 
     function exit($data)
     {
         UserModel::exit_account();
         header("Location: index.php");
+        die();
     }
 }

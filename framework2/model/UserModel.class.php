@@ -7,6 +7,8 @@ class UserModel
     //добавление юзера в БД
     public static function add_user($login, $password, $role = 'user')
     {
+        if(!$login || !$password)
+            return false;
         if (self::user_exist($login))
             return false;
         $password = self::encryption($password);

@@ -11,9 +11,6 @@ class ItemController extends Controller
         return $item;
     }
 
-    public function getHeaderLinks(){
-        return parent::getHeaderLinks();
-    }
 
     public function getScripts(){
         return

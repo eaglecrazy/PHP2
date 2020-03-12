@@ -4,12 +4,11 @@ $('.cart-item-cross').click((e) => {
 
     const data = {
         'asAjax': true,
-        'path': 'cart/delete',
         'id': id
     };
 
     $.ajax({
-        url: 'index.php?cart/delete',
+        url: 'index.php?path=cart/delete',
         type: 'GET',
         dataType: 'text',
         data: data,
@@ -42,13 +41,12 @@ $('.cart-item-quantity').change((e) => {
 
     data = {
         'asAjax': true,
-        'path': 'cart/edit',
         'id': id,
         'count' : count
     };
 
     $.ajax({
-        url: 'index.php?cart/edit',
+        url: 'index.php?path=cart/edit',
         type: 'GET',
         dataType: 'text',
         data: data,

@@ -19,7 +19,7 @@ class AuthorisationController extends Controller
         $link = 'index.php' . $str;
 
         header("Location: $link");
-
+        die();
     }
 
     public function getScripts(){

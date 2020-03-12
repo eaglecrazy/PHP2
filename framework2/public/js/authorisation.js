@@ -4,6 +4,8 @@ const $modal = $('#modal');
 
 $button_enter.click((e) => {
     $.get('index.php?path=authorisation', (page) => {
+        if($modal.text())
+            $modal.text('');
         $modal.append(page);
         //повесим событие на закрытие окна
         $('#modal-close').click((e) => {
