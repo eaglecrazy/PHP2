@@ -74,4 +74,8 @@ class Db
         self::sql($sql, $args);
     }
 
+    public static function get_last_id(){
+        return self::$db->lastInsertId();
+    }
+
 }

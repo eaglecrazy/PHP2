@@ -5,6 +5,7 @@ class OrderController extends Controller
 {
     public $title = 'Оформление заказа';
     public $view_dir = 'order';
+    private $finality = false;
 
     //вывод заказа
     public function index($data)
@@ -18,10 +19,34 @@ class OrderController extends Controller
     }
 
     //добавление заказа в БД
-    public function add($data){
-        if(isset($_POST['login']) && isset($_POST['password'])){
-            echo 1;
+    public function add($data)
+    {
+        //если нужна регистрация
+        if ($_POST['login'] && $_POST['password']) {
+            $result = UserModel::add_user($_POST['login'], $_POST['password']);
+            //если не удалось добавить
+            if (!$result) {
+                $this->view_name = 'error';
+                $this->view_dir = 'registration';
+                return false;
+            }
+
+            //если зарегистрировались, то войдём в аккаунт
+            UserModel::enter_account($_POST['login'], $_POST['password']);
         }
+
+        $this->title = 'Заказ оформлен';
+        $this->view_name = 'orderend';
+        $this->finality = true;
+
+        //сумма к оплате
+        $cost_total = CartModel::get_total_count_cost_render(CartModel::get_items())['total_cost'];
+        //вводим заказ в таблицу
+        $order_num = OrderModel::add_order($_POST);
+        //список покупок
+        $order_items = OrderModel::get_order_items($order_num);
+
+        return ['items' => $order_items, 'num' => $order_num, 'cost' => $cost_total];
     }
 
     public function getHeaderLinks()
@@ -30,10 +55,15 @@ class OrderController extends Controller
         return $links;
     }
 
-    public function getScripts(){
-        return
+    public function getScripts()
+    {
+        $scripts =
             str_replace('@', Config::get('js_jquery'), Config::get('js')) .
             str_replace('@', Config::get('js_authorisation'), Config::get('js'));
+        if(!$this->finality)
+            $scripts .= str_replace('@', Config::get('js_validation'), Config::get('js')) .
+            str_replace('@', Config::get('js_order'), Config::get('js'));
+        return $scripts;
     }
 
 }

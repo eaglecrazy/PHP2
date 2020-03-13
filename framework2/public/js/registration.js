@@ -1,24 +1,11 @@
-const $button_reg = $('#button-registration');
-
-$button_reg.click((e) => {
+$('#button-registration').click((e) => {
     e.preventDefault();
 
     //так как поведение по умолчанию отменили валидация не проходит, поэтому проведём её вручную
-    const login = document.getElementById('input-login');
-    if(login.validity.valueMissing)
-    {
-        login.setCustomValidity('Нужно ввести логин!');
-        login.reportValidity();
+    if(noValidation(document.getElementById('input-login'), 'Нужно ввести логин!'))
         return;
-    }
-
-    const password = document.getElementById('input-password');
-    if(password.validity.valueMissing)
-    {
-        password.setCustomValidity('Нужно ввести пароль!');
-        password.reportValidity();
+    if(noValidation(document.getElementById('input-password'), 'Нужно ввести пароль!'))
         return;
-    }
 
     const data = {
         'login': $('#input-login').val(),
