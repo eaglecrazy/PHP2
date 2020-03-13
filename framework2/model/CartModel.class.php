@@ -35,6 +35,20 @@ class CartModel
         return 1;
     }
 
+    //переносим бронь из кук в бд
+    public static function move_cart_from_cookie_to_db(){
+        $client_id = UserModel::get_id();
+        foreach ($_COOKIE as $name => $value) {
+            if (strpos($name, 'cart') === 0) {
+                $item_id = str_replace('cart', '', $name);
+                $query = 'INSERT INTO cart (client_id, item_id, count, order_id) VALUES (:client_id, :item_id, :count, :order_id)';
+                Db::getInstance()->insert($query, ['client_id'=>$client_id, 'item_id'=>$item_id, 'count'=>$value, 'order_id'=>-1]);
+                self::delete_cart_cookie($item_id);
+            }
+        }
+    }
+
+
     //удаляем товар из корзины
     public static function delete_item($item_id)
     {

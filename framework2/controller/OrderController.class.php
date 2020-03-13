@@ -33,6 +33,9 @@ class OrderController extends Controller
 
             //если зарегистрировались, то войдём в аккаунт
             UserModel::enter_account($_POST['login'], $_POST['password']);
+
+            //и перенесём бронь из кук в БД
+            CartModel::move_cart_from_cookie_to_db();
         }
 
         $this->title = 'Заказ оформлен';

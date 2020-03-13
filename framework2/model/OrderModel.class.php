@@ -22,8 +22,6 @@ class OrderModel
         //проставим его в таблицу корзина
         $query = 'UPDATE cart SET order_id=:new_order_id WHERE client_id=:client_id AND order_id=:order_id';
 
-        //ЕСЛИ КОРЗИНА БЫЛА В КУКИСАХ, ТО НУЖНО ПЕРЕНЕСТИ ВСЁ В БД
-
         Db::getInstance()->update($query, ['new_order_id' => $order_id, 'client_id' => $client_id, 'order_id' => -1]);
         return $order_id;
     }
