@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 13 2020 г., 21:21
--- Версия сервера: 5.6.43
+-- Время создания: Мар 14 2020 г., 22:33
+-- Версия сервера: 10.3.13-MariaDB
 -- Версия PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -33,7 +33,7 @@ CREATE TABLE `cart` (
   `client_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `count` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL DEFAULT '-1'
+  `order_id` int(11) NOT NULL DEFAULT -1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -41,8 +41,10 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `client_id`, `item_id`, `count`, `order_id`) VALUES
-(11, 1, 1, 2, -1),
-(15, 15, 2, 1, -1);
+(42, 1, 1, 3, 11),
+(43, 1, 2, 2, 11),
+(44, 1, 3, 1, 11),
+(45, 1, 1, 1, 15);
 
 -- --------------------------------------------------------
 
@@ -56,7 +58,7 @@ CREATE TABLE `items` (
   `description` text NOT NULL,
   `cost` int(11) NOT NULL,
   `filename` varchar(255) NOT NULL,
-  `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `datetime` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -75,39 +77,22 @@ INSERT INTO `items` (`id`, `name`, `description`, `cost`, `filename`, `datetime`
 --
 
 CREATE TABLE `orders` (
-  `order_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `client_id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `adress` text NOT NULL,
   `comment` text NOT NULL,
-  `order_status` tinyint(1) NOT NULL DEFAULT '0'
+  `order_status` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `client_id`, `name`, `phone`, `adress`, `comment`, `order_status`) VALUES
-(29, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(30, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(31, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(32, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(33, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(34, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(35, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(36, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(37, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(38, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(39, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(40, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(41, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(42, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(43, '15', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(44, '15', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(45, '15', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(46, '15', 'имя', 'телефон', 'адрес', 'комментарий', 0),
-(47, '15', 'имя', 'телефон', 'адрес', 'комментарий', 0);
+INSERT INTO `orders` (`id`, `client_id`, `name`, `phone`, `adress`, `comment`, `order_status`) VALUES
+(11, '1', 'имя', 'телефон', 'адрес', 'комментарий', 0),
+(15, '1', '34', '34', '34', '34', 0);
 
 -- --------------------------------------------------------
 
@@ -129,9 +114,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `login`, `password`, `role`) VALUES
 (1, 'admin', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'admin'),
 (2, 'user', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user'),
-(13, 'логин', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user'),
-(14, 'логин1', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user'),
-(15, 'admin1', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user');
+(34, 'логин', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user');
 
 --
 -- Индексы сохранённых таблиц
@@ -154,7 +137,7 @@ ALTER TABLE `items`
 -- Индексы таблицы `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`order_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `users`
@@ -170,7 +153,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT для таблицы `items`
@@ -182,13 +165,13 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
