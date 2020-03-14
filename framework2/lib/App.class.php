@@ -91,7 +91,8 @@ class App
                 'title' => $controller->title,
                 'header_links' => $controller->getHeaderLinks(),
                 'scripts' => $controller->getScripts(),
-                'login' => $controller->login
+                'login' => $controller->login,
+                'role' => $controller->user_role,
             ];
 
             if (!isset($_REQUEST['asAjax'])) {//если запрос делается не как аякс

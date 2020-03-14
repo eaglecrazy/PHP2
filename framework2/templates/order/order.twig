@@ -21,18 +21,18 @@
             <h2 class="form-heading">Контактные данные</h2>
             {% if login is null %}
                 <label class="form-label" for="login">Логин</label>
-                <input type="text" name="login" id="input-login" class="form-add-input" required value="логин">
+                <input type="text" name="login" id="input-login" class="form-add-input" required>
                 <label class="form-label" for="password">Пароль</label>
-                <input type="text" name="password" id="input-password" class="form-add-input" required value="123">
+                <input type="text" name="password" id="input-password" class="form-add-input" required>
             {% endif %}
             <label class="form-label" for="name">Имя получателя</label>
-            <input type="text" name="name" id="input-name" class="form-add-input" required value="имя">
+            <input type="text" name="name" id="input-name" class="form-add-input" required>
             <label class="form-label" for="phone">Телефон</label>
-            <input type="text" name="phone" id="input-phone" class="form-add-input" required  value="телефон">
+            <input type="text" name="phone" id="input-phone" class="form-add-input" required>
             <label class="form-label" for="adress">Адрес</label>
-            <textarea name="adress" id="input-adress" cols="30" rows="3" class="form-add-input order-textarea" required>адрес</textarea>
+            <textarea name="adress" id="input-adress" cols="30" rows="3" class="form-add-input order-textarea" required></textarea>
             <label class="form-label" for="comment">Комментарий к заказу</label>
-            <textarea name="comment" id="input-comment" cols="30" rows="3" class="form-add-input order-textarea">комментарий</textarea>
+            <textarea name="comment" id="input-comment" cols="30" rows="3" class="form-add-input order-textarea"></textarea>
             <input type="submit" value="Заказать" class="button order-button" id="button-order">
         </div>
     </form>

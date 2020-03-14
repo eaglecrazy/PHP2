@@ -1,1 +1,6 @@
-<footer class="footer"></footer>
+<footer class="footer">
+    {% if role == 'admin' %}
+        <a href="index.php?path=adminitems" class="button indexButton">Товары</a>
+        <a href="index.php?path=adminorders" class="button indexButton">Заказы</a>
+    {% endif %}
+</footer>

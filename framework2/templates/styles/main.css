@@ -5,6 +5,9 @@ body {
     font-family: "Arial MT", sans-serif;
 }
 
+.wrapper{
+    width: 100%;
+}
 
 .header {
     min-height: 40px;
@@ -81,7 +84,7 @@ body {
 }
 
 .main {
-    padding: 20px 0;
+    padding: 20px;
     border-top: solid 2px #333333;
     border-bottom: solid 2px #333333;
     text-align: center;
@@ -140,10 +143,7 @@ body {
 }
 
 
-.form {
-    border: solid 2px #b4b4b4;
-    text-align: left;
-}
+
 
 .edit-item {
     border: solid 2px #333333;
@@ -172,6 +172,8 @@ body {
 .form-label {
     display: block;
     margin: 15px 0 5px 15px;
+    color: #333333;
+    align-self: center;
 }
 
 .form-heading {
@@ -180,10 +182,13 @@ body {
     margin: 5px 15px;
 }
 
+
 .items-table {
     width: 100%;
-    border: solid 2px #333333;
-    margin: 15px 0;
+    border: solid 2px #b4b4b4;
+    margin: 20px auto;
+    /*border-radius: 5px;*/
+    /*overflow: hidden;!*нужно чтобы работал border-radius у таблицы*!*/
 }
 
 .table-heading {
@@ -444,16 +449,22 @@ body {
     display: flex;
 }
 
-.form {
+.form{
+    border: solid 2px #b4b4b4;
+    padding: 30px;
+    color: #333333;
+    border-radius: 5px;
+}
+
+.form-admin-items {
+    text-align: left;
+}
+
+.form-registration {
     margin: 20px auto;
     display: grid;
     grid-template-columns: 110px 500px;
     grid-gap: 20px 10px;
-    color: #333333;
-    border: solid #989898 1px;
-    padding: 30px;
-    border-radius: 5px;
-
 }
 
 .form-add-input {
@@ -471,10 +482,7 @@ body {
 }
 
 
-.form-label {
-    color: #333333;
-    align-self: center;
-}
+
 
 .form-label:last-of-type {
     margin-top: 10px;
@@ -498,19 +506,6 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .cart-wrapper {
     display: flex;
     justify-content: space-between;
@@ -531,7 +526,7 @@ body {
     width: 380px;
     min-height: 186px;
     box-sizing: border-box;
-    margin: 0 10px;
+    margin-left: 20px;
     border-radius: 10px;
     padding: 15px 20px;
     display: flex;

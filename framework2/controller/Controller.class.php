@@ -6,12 +6,16 @@ abstract class Controller
     public $view_name = 'index';
     public $title = '';
     public $login = null;
+    public $user_role = 'user';
 
 
     function __construct()
     {
         if($_SESSION['login'])
-            $this->login = $_SESSION['login'];
+            {
+                $this->login = $_SESSION['login'];
+                $this->user_role = UserModel::getRole($this->login);
+            }
     }
 
     public function index($data)

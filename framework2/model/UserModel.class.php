@@ -4,10 +4,17 @@ class UserModel
 {
     private const SALT = 'asdg452sdacvdfb3q54r';
 
+    //возвращает роль юзера
+    public function getRole($login)
+    {
+        $query = 'SELECT role FROM users WHERE login=:login';
+        return Db::getInstance()->select($query, ['login' => $login])[0]['role'];
+    }
+
     //добавление юзера в БД
     public static function add_user($login, $password, $role = 'user')
     {
-        if(!$login || !$password)
+        if (!$login || !$password)
             return false;
         if (self::user_exist($login))
             return false;
@@ -30,7 +37,7 @@ class UserModel
     //получение id клиента
     public static function get_id()
     {
-        if(!$_SESSION['login'])
+        if (!$_SESSION['login'])
             return -1;
         $query = 'SELECT id FROM users WHERE login=:login';
         return Db::getInstance()->select($query, ['login' => $_SESSION['login']])[0]['id'];
