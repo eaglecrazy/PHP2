@@ -5,11 +5,6 @@ class RegistrationController extends Controller
     public $view_dir = 'registration';
     public $title = 'Регистрация';
 
-    public function index($data)
-    {
-        return '';
-    }
-
     public function getScripts()
     {
         return

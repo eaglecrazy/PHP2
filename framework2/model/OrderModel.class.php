@@ -26,8 +26,19 @@ class OrderModel
         return $order_id;
     }
 
-    public static function get_order_items($num){
+    public static function get_order_items($num)
+    {
         $query = 'SELECT I.name, I.cost, C.count FROM cart AS C JOIN items AS I ON C.item_id=I.id  WHERE C.order_id=:order_id';
-        return db::getInstance()->select($query, ['order_id'=>$num]);
+        return db::getInstance()->select($query, ['order_id' => $num]);
+    }
+
+    //возвращает true если заказ $order_num сделал клиент $client_id
+    public static function checkUserToOrder($client_id, $order_num)
+    {
+        $query = 'SELECT id FROM orders WHERE id=:id AND client_id=:client_id';
+        $result = Db::getInstance()->select($query, ['id' => $order_num, 'client_id' => $client_id]);
+        if(empty($result))
+            return false;
+        return true;
     }
 }

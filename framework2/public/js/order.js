@@ -36,21 +36,22 @@ $('#button-order').click((e) => {
         dataType: 'text',
         data: data,
         success: (answer) => {
-            //сервер прислал страницу
-            let test = answer.indexOf('<main class="main">');
-            if (test) {
-                document.innerHTML = answer;
-            } else {
-                if ($modal.text())
-                    $modal.text('');
-                $modal.append(answer);
-                //повесим событие на закрытие окна
-                $('#modal-close').click((e) => {
-                    $modal.fadeOut('fast');
-                    $modal.text('');
-                });
-                $modal.fadeIn('fast');
+            const order_num = parseInt(answer)
+            //если пришёл номер заказа то перейдём к завершению заказа
+            if (order_num) {
+                window.location.href = `index.php?path=order/end/${order_num}`;
+                return;
             }
+            //регистрация не удалась
+            if ($modal.text())
+                $modal.text('');
+            $modal.append(answer);
+            //повесим событие на закрытие окна
+            $('#modal-close').click((e) => {
+                $modal.fadeOut('fast');
+                $modal.text('');
+            });
+            $modal.fadeIn('fast');
         },
         fail: () => {
             alert('Ошибка добавления заказа.');

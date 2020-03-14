@@ -1,21 +1,48 @@
 <?php
-
-
 class OrderController extends Controller
 {
     public $title = 'Оформление заказа';
     public $view_dir = 'order';
-    private $finality = false;
+    private $end = false;//флаг завершения заказа
 
-    //вывод заказа
+    //вывод заказа перед подтверждением
     public function index($data)
     {
         $cart = CartModel::get_items();
+        //если корзина пуста на этой страничке нечего делать
+        if(empty($cart))
+            $this->goToIndex();
+
         $total_count_cost = CartModel::get_total_count_cost_render($cart);
         return [
             'cart' => $cart,
             'total_cost' => $total_count_cost['total_cost'],
         ];
+    }
+
+    //итоговый вывод заказа
+    public function end($data){
+
+        $order_num = $data['id'];
+
+        $client_id = UserModel::get_id();
+        //если клиент не авторизован, то ему тут нечего делать
+        if($client_id === -1)
+            $this->goToIndex();
+        //заказ нужно отобразить если авторизован именно тот пользователь, что его делал
+        //заодно проверяется существование заказа
+        if(!OrderModel::checkUserToOrder($client_id, $order_num))
+            $this->goToIndex();
+
+        $this->title = 'Заказ оформлен';
+        $this->end = true;
+
+        $cost_total = CartModel::get_total_count_cost_render(CartModel::get_items($order_num))['total_cost'];
+
+        //список покупок
+        $order_items = OrderModel::get_order_items($order_num);
+
+        return ['items' => $order_items, 'num' => $order_num, 'cost' => $cost_total];
     }
 
     //добавление заказа в БД
@@ -38,18 +65,11 @@ class OrderController extends Controller
             CartModel::move_cart_from_cookie_to_db();
         }
 
-        $this->title = 'Заказ оформлен';
-        $this->view_name = 'orderend';
-        $this->finality = true;
-
-        //сумма к оплате
-        $cost_total = CartModel::get_total_count_cost_render(CartModel::get_items())['total_cost'];
         //вводим заказ в таблицу
         $order_num = OrderModel::add_order($_POST);
-        //список покупок
-        $order_items = OrderModel::get_order_items($order_num);
 
-        return ['items' => $order_items, 'num' => $order_num, 'cost' => $cost_total];
+        //отправим номер заказа для перехода на страницу завершения заказа
+        die($order_num);
     }
 
     public function getHeaderLinks()
@@ -63,10 +83,15 @@ class OrderController extends Controller
         $scripts =
             str_replace('@', Config::get('js_jquery'), Config::get('js')) .
             str_replace('@', Config::get('js_authorisation'), Config::get('js'));
-        if(!$this->finality)
+        if(!$this->end)
             $scripts .= str_replace('@', Config::get('js_validation'), Config::get('js')) .
             str_replace('@', Config::get('js_order'), Config::get('js'));
         return $scripts;
+    }
+
+    private function goToIndex(){
+        header('Location: index.php');
+        die();
     }
 
 }

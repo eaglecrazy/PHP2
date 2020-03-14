@@ -133,7 +133,7 @@ class CartModel
     }
 
     //возвращает массив с данными для построения старничек "корзина" и "заказ"
-    public static function get_items()
+    public static function get_items($order_id = -1)
     {
         $cart = [];
         //выясняем id клиента
@@ -153,7 +153,7 @@ class CartModel
         } else {
             $query =
                 'SELECT C.count, I.id, I.name, I.cost, I.filename FROM cart AS C INNER JOIN items AS I ON C.item_id = I.id WHERE C.client_id=:client_id AND C.order_id=:order_id ORDER BY I.name';
-            $result = Db::getInstance()->select($query, ['client_id' => $client_id, 'order_id' => -1]);
+            $result = Db::getInstance()->select($query, ['client_id' => $client_id, 'order_id' => $order_id]);
             foreach ($result as $cart_item) {
                 $cart_item['total_item_cost'] = $cart_item['count'] * $cart_item['cost'];
                 $cart[] = $cart_item;

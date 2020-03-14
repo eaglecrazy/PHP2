@@ -19,7 +19,7 @@ $('#button-registration').click((e) => {
         data: data,
         success: (answer) => {
             //если всё ок, то перейдём на главную
-            if (answer == 'OK') {
+            if (answer === 'OK') {
                 window.location.href = "index.php";
                 return;
             }
