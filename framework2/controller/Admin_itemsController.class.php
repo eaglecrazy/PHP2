@@ -1,6 +1,6 @@
 <?php
 
-class AdminitemsController extends Controller
+class Admin_itemsController extends Controller
 {
     public $title = 'Управление товарами';
     public $view_dir = 'admin/items';
@@ -23,5 +23,10 @@ class AdminitemsController extends Controller
         $this->error = ItemsModel::add_item($_POST['name'], $_POST['cost'], $_POST['description'], $_FILES['photo']);
         $this->view_name = 'index';
         return $this->index($data);
+    }
+
+    public function edit($data){
+        return ItemsModel::get_item($data['id']);
+//        $this->error = ItemsModel::edit_item($_POST['name'], $_POST['cost'], $_POST['description'], $_FILES['photo']);
     }
 }

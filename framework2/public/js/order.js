@@ -36,7 +36,7 @@ $('#button-order').click((e) => {
         dataType: 'text',
         data: data,
         success: (answer) => {
-            const order_num = parseInt(answer)
+            const order_num = parseInt(answer);
             //если пришёл номер заказа то перейдём к завершению заказа
             if (order_num) {
                 window.location.href = `index.php?path=order/end/${order_num}`;

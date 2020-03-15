@@ -26,8 +26,8 @@ class ItemsModel
             return 'error';//есть ошибка добавления
 
         //добавим запись в БД
-        $query = 'INSERT INTO items (name, description, cost) VALUES (:name, :description, :cost)';
-        Db::getInstance()->insert($query, ['name' => $name, 'description' => $description, 'cost' => $cost]);
+        $query = 'INSERT INTO items (name, description, cost, filename) VALUES (:name, :description, :cost, :filename)';
+        Db::getInstance()->insert($query, ['name' => $name, 'description' => $description, 'cost' => $cost, 'filename' => '']);
         $id = Db::get_last_id();
 
         //сгенерируем пути
@@ -48,6 +48,37 @@ class ItemsModel
         }
 
         return 'ok';
+    }
+
+    public static function edit_item($name, $cost, $description, $file_info)
+    {
+
+//        if (self::item_exist($name))
+//            return 'error';//есть ошибка добавления
+//
+//        //добавим запись в БД
+//        $query = 'INSERT INTO items (name, description, cost, filename) VALUES (:name, :description, :cost, :filename)';
+//        Db::getInstance()->insert($query, ['name' => $name, 'description' => $description, 'cost' => $cost, 'filename' => '']);
+//        $id = Db::get_last_id();
+//
+//        //сгенерируем пути
+//        $url_name = self::get_url_name($file_info['name']);
+//        $full_name = "/$id-$url_name";
+//        $path_small = Config::get('photo-small') . $full_name;
+//        $path_big = Config::get('photo-big') . $full_name;
+//
+//        //добавим имя файла в БД
+//        $query = 'UPDATE items SET filename=:filename WHERE id=:id';
+//        Db::getInstance()->update($query, ['filename' => $full_name, 'id' => $id]);
+//
+//        //переместим файл и создадим уменьшенную копию не более 250*156 пикселей
+//        //а обычную уменьшим до 750*468
+//        if (move_uploaded_file($file_info["tmp_name"], $path_big)) {
+//            self::image_resize($path_big, $path_big, 750, 468, 100);
+//            self::image_resize($path_small, $path_big, 250, 156, 100);
+//        }
+//
+//        return 'ok';
     }
 
     //перевод названия в транслит без пробелов
@@ -91,7 +122,6 @@ class ItemsModel
         //удалим недопустимые символы
         return preg_replace("/[^a-z0-9.\-]/i", '', $s);
     }
-
 
     //изменение размеров изображения
     private static function image_resize($outfile, $infile, $neww, $newh, $quality)
