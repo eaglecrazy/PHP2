@@ -6,7 +6,7 @@ class ItemController extends Controller
 
     //метод, который отправляет в представление информацию в виде переменной content_data
     function index($data){
-        $item = ItemModel::getItem($data['id']);
+        $item = ItemsModel::get_item($data['id']);
         $this->title = $item['name'];
         return $item;
     }

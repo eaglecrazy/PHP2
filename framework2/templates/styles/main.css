@@ -41,12 +41,12 @@ body {
     margin-bottom: 10px;
 }
 
-.menuRight {
+.menu-right {
     display: flex;
     justify-content: flex-end;
 }
 
-.headerButton {
+.header-button {
     margin-left: 10px;
 }
 
@@ -131,20 +131,6 @@ body {
     min-width: 250px;
 }
 
-.header .searchInput {
-    height: 40px;
-    box-sizing: border-box;
-    font-size: 20px;
-}
-
-
-.searchForm {
-    display: inline-block;
-}
-
-
-
-
 .edit-item {
     border: solid 2px #333333;
     border-bottom: 0;
@@ -157,38 +143,16 @@ body {
     border-bottom: solid 2px #333333;
 }
 
-
-.order-form .form-add-input {
-    display: block;
-    margin: 0 15px 0 15px;
-    width: 95%;
-    resize: none;
-}
-
-.form-add-input:last-child {
-    margin: 15px;
-}
-
-.form-label {
-    display: block;
-    margin: 15px 0 5px 15px;
-    color: #333333;
-    align-self: center;
-}
-
-.form-heading {
-    font-weight: bold;
-    font-size: 30px;
-    margin: 5px 15px;
-}
-
-
 .items-table {
     width: 100%;
+    border: none;
+}
+
+.table-wrapper{
     border: solid 2px #b4b4b4;
     margin: 20px auto;
-    /*border-radius: 5px;*/
-    /*overflow: hidden;!*нужно чтобы работал border-radius у таблицы*!*/
+    border-radius: 5px;
+    width: 100%;
 }
 
 .table-heading {
@@ -233,7 +197,6 @@ body {
 .table-link-delete img
 {transition: transform 100ms ease-out;}
 
-
 .table-link-edit:hover img,
 .table-link-delete:hover img {
     transform: scale(1.2);
@@ -243,7 +206,6 @@ body {
 .table-link-delete img {
     margin: auto;
 }
-
 
 .item-wrap {
     display: flex;
@@ -256,7 +218,6 @@ body {
     max-height: 468px;
     max-width: 748px;
 }
-
 
 .item-info-heading {
     font-weight: 700;
@@ -295,14 +256,11 @@ body {
     margin-right: 20px;
 }
 
-
 .item-info-button {
     margin: auto auto 20px auto;
 }
 
-.hidden {
-    display: none;
-}
+
 
 .modal {
     position: fixed;
@@ -381,16 +339,6 @@ body {
     border: none;
 }
 
-
-.order-form {
-    border: solid 2px #b4b4b4;
-    width: 35%;
-    min-width: 434px;
-    margin: 0 auto;
-    text-align: left;
-    padding: 10px;
-}
-
 .order-first-column {
     width: 40%;
 }
@@ -443,68 +391,11 @@ body {
     padding-top: 20px;
 }
 
-
-
-.form-wrap {
-    display: flex;
-}
-
-.form{
-    border: solid 2px #b4b4b4;
-    padding: 30px;
-    color: #333333;
-    border-radius: 5px;
-}
-
-.form-admin-items {
-    text-align: left;
-}
-
-.form-registration {
-    margin: 20px auto;
-    display: grid;
-    grid-template-columns: 110px 500px;
-    grid-gap: 20px 10px;
-}
-
-.form-add-input {
-    border: solid #989898 1px;
-    font-size: 16px;
-    padding: 5px;
-    position: relative;
-    height: 31px;
-    box-sizing: border-box;
-}
-
-.form-add-input:focus {
-    outline: none;
-    box-shadow: 0 0 2px #333333;
-}
-
-
-
-
-.form-label:last-of-type {
-    margin-top: 10px;
-    align-self: start;
-}
-
-.form-button {
-    margin-top: 10px;
-    grid-column: 1 / -1;
-    justify-self: center;
-}
-
-
-
-
 .info-text{
     margin-top: 15px;
     line-height: 30px;
     font-size: 22px;
 }
-
-
 
 .cart-wrapper {
     display: flex;
@@ -604,14 +495,116 @@ body {
     height: 100px;
 }
 
+.form-heading {
+    font-weight: bold;
+    font-size: 30px;
+    width: 100%;
+}
 
+.form-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    color: #333333;
+    min-width: 650px;
+}
 
+.form-search {
+    height: 40px;
+    box-sizing: border-box;
+    font-size: 20px;
+    display: inline-block;
+}
 
+.form-registration-label {
+    display: block;
+    margin: 15px 0 5px 15px;
+    color: #333333;
+    align-self: center;
+}
 
+.form-registration {
+    margin: 20px auto 30px auto;
+    display: grid;
+    grid-template-columns: 110px 500px;
+    grid-gap: 20px 10px;
+    border: solid 2px #b4b4b4;
+    padding: 30px;
+    border-radius: 5px;
+}
 
+.form-registration-button {
+    margin-top: 10px;
+    grid-column: 1 / -1;
+    justify-self: center;
+}
 
+.form-order {
+    border: solid 2px #b4b4b4;
+    width: 35%;
+    min-width: 434px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 10px;
+    border-radius: 5px;
+}
 
+.form-order-input {
+    display: block;
+    margin: 0 15px 0 15px;
+    width: 95%;
+    resize: none;
+}
 
+.form-admin-items {
+    width: 100%;
+    text-align: left;
+    border: solid 2px #b4b4b4;
+    padding: 30px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
 
+.form-items-label{
+    display: block;
+    margin-bottom: 5px;
+}
 
+.form-items-input {
+    border: solid #989898 1px;
+    font-size: 16px;
+    padding: 5px;
+    position: relative;
+    height: 31px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    width: 600px;
+    resize: none;
+    display: block;
+}
 
+.form-items-input:focus {
+    outline: none;
+    box-shadow: 0 0 2px #333333;
+}
+
+.form-items-input:last-child{
+    margin-bottom: 0;
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
+    border: none;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.form-items-input-file{
+    padding: 0;
+    height: auto;
+    margin-bottom: 25px;
+    line-height: 31px;
+    border: none;
+}
+
+.hidden {
+    display: none;
+}

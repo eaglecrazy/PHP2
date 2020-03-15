@@ -5,10 +5,18 @@ class UserModel
     private const SALT = 'asdg452sdacvdfb3q54r';
 
     //возвращает роль юзера
-    public function getRole($login)
+    public static function get_role($login)
     {
         $query = 'SELECT role FROM users WHERE login=:login';
         return Db::getInstance()->select($query, ['login' => $login])[0]['role'];
+    }
+
+    //если юзер не админ, то он идёт на главную
+    public static function this_is_admin($role){
+        if($role != 'admin'){
+            header('Location: index.php');
+            die();
+        }
     }
 
     //добавление юзера в БД

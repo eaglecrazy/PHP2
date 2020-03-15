@@ -14,7 +14,7 @@ abstract class Controller
         if($_SESSION['login'])
             {
                 $this->login = $_SESSION['login'];
-                $this->user_role = UserModel::getRole($this->login);
+                $this->user_role = UserModel::get_role($this->login);
             }
     }
 
