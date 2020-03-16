@@ -1,9 +1,9 @@
 <main class="main">
     <div class="form-wrap">
         <h2 class="form-heading">Изменение товара {{ content_data.name }}</h2>
-        <form class="form-admin-items" action="../server/edit-item.php" enctype="multipart/form-data" method="POST">
+        <form class="form-admin-items" action="index.php?path=admin_items/edit/{{ content_data.id }}" enctype="multipart/form-data" method="POST">
 
-            <input class="hidden" id="{{ content_data.id }}" type="text" value="{{ content_data.id }}">
+            <input class="hidden" id="id" type="text" value="{{ content_data.id }}">
 
             <label class="form-items-label" for="name">Наименование товара</label>
             <input class="form-items-input" id="name" name="name" required type="text" value="{{ content_data.name }}">

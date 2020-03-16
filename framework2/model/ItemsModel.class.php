@@ -50,12 +50,38 @@ class ItemsModel
         return 'ok';
     }
 
-    public static function edit_item($name, $cost, $description, $file_info)
+    //функция возаращает 'ok' если редактирование прошло успешно, и 'error' если нет.
+    public static function edit_item($id, $name, $cost, $description, $file_info)
     {
 
-//        if (self::item_exist($name))
-//            return 'error';//есть ошибка добавления
-//
+        //0 без изменений, 1 изменения успешны, -1 ошибка
+        $result = ['name' => 0, 'cost' => 0, 'description' => 0, 'file' => 0];
+
+        if ($name) {
+            if (self::item_exist($name))
+                $result['name'] = -1;
+            $query = 'UPDATE items SET name=:name WHERE id=:id';
+            Db::getInstance()->update($query, ['name' => $name, 'id' => $id]);
+            $result['name'] = 1;
+        }
+
+        if ($cost) {
+            if ($cost <= 0)
+                $result['cost'] = -1;
+            $query = 'UPDATE items SET cost=:cost WHERE id=:id';
+            Db::getInstance()->update($query, ['cost' => $cost, 'id' => $id]);
+            $result['cost'] = 1;
+        }
+        if ($description) {
+            if (empty($description))
+                $result['dscription'] = -1;
+            $query = 'UPDATE items SET description=:description WHERE id=:id';
+            Db::getInstance()->update($query, ['description' => $description, 'id' => $id]);
+            $result['description'] = 1;
+            return 'error';
+        }
+
+
 //        //добавим запись в БД
 //        $query = 'INSERT INTO items (name, description, cost, filename) VALUES (:name, :description, :cost, :filename)';
 //        Db::getInstance()->insert($query, ['name' => $name, 'description' => $description, 'cost' => $cost, 'filename' => '']);
@@ -78,7 +104,7 @@ class ItemsModel
 //            self::image_resize($path_small, $path_big, 250, 156, 100);
 //        }
 //
-//        return 'ok';
+        return $result;//ошибок не было
     }
 
     //перевод названия в транслит без пробелов
