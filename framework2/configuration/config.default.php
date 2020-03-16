@@ -27,3 +27,4 @@ $config['js_cart'] = 'cart.js';
 $config['js_registration'] = 'registration.js';
 $config['js_order'] = 'order.js';
 $config['js_validation'] = 'validation.js';
+$config['js_edit_item'] = 'edit_item.js';

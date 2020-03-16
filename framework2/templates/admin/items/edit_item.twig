@@ -9,7 +9,7 @@
             <input class="form-items-input" id="name" name="name" required type="text" value="{{ content_data.name }}">
 
             <label class="form-items-label" for="cost">Стоимость товара</label>
-            <input class="form-items-input" id="cost" min="0" name="cost" required type="number" value="{{ content_data.cost }}">
+            <input class="form-items-input" id="cost" min="1" name="cost" required type="number" value="{{ content_data.cost }}">
 
             <label class="form-items-label" for="description">Описание товара</label>
             <textarea class="form-items-input" cols="30" rows="10" id="description" name="description" required >{{ content_data.description }}</textarea>
@@ -18,7 +18,7 @@
             <img alt="photo {{ content_data.name }}" class="margin15" src="../templates/img/small/{{ content_data.filename }}">
 
             <input class="form-items-input form-items-input-file" id="photo" name="photo" required type="file">
-            <input class="form-items-input button" type="submit" value="Сохранить">
+            <input class="form-items-input button" type="submit" value="Сохранить" id="submit">
         </form>
     </div>
 </main>
