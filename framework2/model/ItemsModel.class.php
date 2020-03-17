@@ -71,6 +71,12 @@ class ItemsModel
         return $result;//ошибок не было
     }
 
+    //удаляем итем
+    public static function delete_item($id){
+        self::delete_photo($id);
+        $query = 'DELETE FROM items WHERE id=:id';
+        Db::getInstance()->delete($query, ['id' => $id]);
+    }
     //перевод названия в транслит без пробелов
     private static function get_url_name($str)
     {

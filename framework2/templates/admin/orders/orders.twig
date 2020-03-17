@@ -1,0 +1,19 @@
+<main class="main">
+{#    <pre> {{ dump(content_data) }} </pre>#}
+    <table class="items-table">
+        <tr>
+            <th class="table-heading">№</th>
+            <th class="table-heading">Детали заказа</th>
+            <th class="table-heading">Сумма к оплате</th>
+            <th class="table-heading">Клиент</th>
+            <th class="table-heading">Адрес</th>
+            <th class="table-heading">Телефон</th>
+            <th class="table-heading">Комментарий</th>
+            <th class="table-heading">Статус заказа</th>
+            <th class="table-heading">Удалить</th>
+        </tr>
+        {% for order in content_data %}
+            {% include 'admin/orders/order.twig' %}
+        {% endfor %}
+    </table>
+</main>

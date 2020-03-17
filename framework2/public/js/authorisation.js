@@ -1,6 +1,6 @@
 const $button_enter = $('#button-enter');
 
-const $modal = $('#modal');
+let $modal = $('#modal');
 
 $button_enter.click((e) => {
     $.get('index.php?path=authorisation', (page) => {

@@ -47,6 +47,12 @@ class Admin_itemsController extends Controller
         return ItemsModel::get_item($data['id']);
     }
 
+    public function delete($data){
+        ItemsModel::delete_item($data['id']);
+        header('Location: index.php?path=admin_items');
+        die();
+    }
+
     public function getScripts()
     {
         if ($this->is_ajax)

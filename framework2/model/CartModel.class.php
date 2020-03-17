@@ -132,12 +132,14 @@ class CartModel
         return $result;
     }
 
+
     //возвращает массив с данными для построения старничек "корзина" и "заказ"
-    public static function get_items($order_id = -1)
+    public static function get_items($order_id = -1, $client_id = null)
     {
         $cart = [];
         //выясняем id клиента
-        $client_id = UserModel::get_id();
+        if($client_id === null)
+            $client_id = UserModel::get_id();
 
         //если client_id == -1 то он не зарегистрирован и корзину храним в куках
         if ($client_id == -1) {

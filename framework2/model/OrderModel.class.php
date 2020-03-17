@@ -13,9 +13,12 @@ class OrderModel
         } catch (Exception $e) {
             die($e->getMessage());
         }
+        //посчитаем итоговую стоимость
+        $total_cost = CartModel::get_total_count_cost_render(CartModel::get_items())['total_cost'];
+
         //внесём данные в таблицу заказов
-        $query = 'INSERT INTO orders (client_id, name, phone, adress, comment, order_status) VALUES (:client_id, :name, :phone, :adress, :comment, :order_status)';
-        $param = ['client_id' => $client_id, 'name' => $data['name'], 'phone' => $data['phone'], 'adress' => $data['adress'], 'comment' => $data['comment'], 'order_status' => 0];
+        $query = 'INSERT INTO orders (client_id, total_cost, name, phone, adress, comment, order_status) VALUES (:client_id, :total_cost, :name, :phone, :adress, :comment, :order_status)';
+        $param = ['client_id' => $client_id, 'total_cost' => $total_cost, 'name' => $data['name'], 'phone' => $data['phone'], 'adress' => $data['adress'], 'comment' => $data['comment'], 'order_status' => 0];
         Db::getInstance()->insert($query, $param);
         //узнаем номер заказа
         $order_id = Db::getInstance()->get_last_id();
@@ -32,13 +35,26 @@ class OrderModel
         return db::getInstance()->select($query, ['order_id' => $num]);
     }
 
+    //возвращает все заказы
+    public static function get_all_orders()
+    {
+        $query = 'SELECT * FROM orders';
+        return Db::getInstance()->select($query, []);
+    }
+
     //возвращает true если заказ $order_num сделал клиент $client_id
     public static function checkUserToOrder($client_id, $order_num)
     {
         $query = 'SELECT id FROM orders WHERE id=:id AND client_id=:client_id';
         $result = Db::getInstance()->select($query, ['id' => $order_num, 'client_id' => $client_id]);
-        if(empty($result))
+        if (empty($result))
             return false;
         return true;
+    }
+
+    public static function get_client_id($id)
+    {
+        $query = 'SELECT client_id FROM orders WHERE id=:id';
+        return Db::getInstance()->select($query, ['id' => $id])[0]['client_id'];
     }
 }
