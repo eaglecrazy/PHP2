@@ -5,17 +5,17 @@
 
             <input class="hidden" id="id" type="text" value="{{ content_data.id }}">
 
-            <label class="form-items-label" for="name">Наименование товара</label>
+            <label class="form-items-label" id="l-name" for="name">Наименование товара</label>
             <input class="form-items-input" id="name" name="name" required type="text" value="{{ content_data.name }}">
 
-            <label class="form-items-label" for="cost">Стоимость товара</label>
+            <label class="form-items-label" id="l-cost" for="cost">Стоимость товара</label>
             <input class="form-items-input" id="cost" min="1" name="cost" required type="number" value="{{ content_data.cost }}">
 
-            <label class="form-items-label" for="description">Описание товара</label>
+            <label class="form-items-label" id="l-description" for="description">Описание товара</label>
             <textarea class="form-items-input" cols="30" rows="10" id="description" name="description" required >{{ content_data.description }}</textarea>
 
-            <label class="form-items-label" for="photo">Фотография товара</label>
-            <img alt="photo {{ content_data.name }}" class="margin15" src="../templates/img/small/{{ content_data.filename }}">
+            <label class="form-items-label" id="l-photo" for="photo">Фотография товара</label>
+            <img alt="photo {{ content_data.name }}" class="margin15" id="item-photo" src="../templates/img/small{{ content_data.filename }}">
 
             <input class="form-items-input form-items-input-file" id="photo" name="photo" required type="file">
             <input class="form-items-input button" type="submit" value="Сохранить" id="submit">

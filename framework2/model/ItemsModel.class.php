@@ -30,32 +30,16 @@ class ItemsModel
         Db::getInstance()->insert($query, ['name' => $name, 'description' => $description, 'cost' => $cost, 'filename' => '']);
         $id = Db::get_last_id();
 
-        //сгенерируем пути
-        $url_name = self::get_url_name($file_info['name']);
-        $full_name = "/$id-$url_name";
-        $path_small = Config::get('photo-small') . $full_name;
-        $path_big = Config::get('photo-big') . $full_name;
-
-        //добавим имя файла в БД
-        $query = 'UPDATE items SET filename=:filename WHERE id=:id';
-        Db::getInstance()->update($query, ['filename' => $full_name, 'id' => $id]);
-
-        //переместим файл и создадим уменьшенную копию не более 250*156 пикселей
-        //а обычную уменьшим до 750*468
-        if (move_uploaded_file($file_info["tmp_name"], $path_big)) {
-            self::image_resize($path_big, $path_big, 750, 468, 100);
-            self::image_resize($path_small, $path_big, 250, 156, 100);
-        }
-
+        //добавим фоточки
+        self::add_photo($id, $file_info);
         return 'ok';
     }
 
     //функция возаращает 'ok' если редактирование прошло успешно, и 'error' если нет.
     public static function edit_item($id, $name, $cost, $description, $file_info)
     {
-
         //0 без изменений, 1 изменения успешны, -1 ошибка
-        $result = ['name' => 0, 'cost' => 0, 'description' => 0, 'file' => 0];
+        $result = ['name' => 0, 'cost' => 0, 'description' => 0, 'photo' => 0];
 
         if ($name) {
             if (self::item_exist($name))
@@ -64,7 +48,6 @@ class ItemsModel
             Db::getInstance()->update($query, ['name' => $name, 'id' => $id]);
             $result['name'] = 1;
         }
-
         if ($cost) {
             if ($cost <= 0)
                 $result['cost'] = -1;
@@ -78,32 +61,13 @@ class ItemsModel
             $query = 'UPDATE items SET description=:description WHERE id=:id';
             Db::getInstance()->update($query, ['description' => $description, 'id' => $id]);
             $result['description'] = 1;
-            return 'error';
         }
-
-
-//        //добавим запись в БД
-//        $query = 'INSERT INTO items (name, description, cost, filename) VALUES (:name, :description, :cost, :filename)';
-//        Db::getInstance()->insert($query, ['name' => $name, 'description' => $description, 'cost' => $cost, 'filename' => '']);
-//        $id = Db::get_last_id();
-//
-//        //сгенерируем пути
-//        $url_name = self::get_url_name($file_info['name']);
-//        $full_name = "/$id-$url_name";
-//        $path_small = Config::get('photo-small') . $full_name;
-//        $path_big = Config::get('photo-big') . $full_name;
-//
-//        //добавим имя файла в БД
-//        $query = 'UPDATE items SET filename=:filename WHERE id=:id';
-//        Db::getInstance()->update($query, ['filename' => $full_name, 'id' => $id]);
-//
-//        //переместим файл и создадим уменьшенную копию не более 250*156 пикселей
-//        //а обычную уменьшим до 750*468
-//        if (move_uploaded_file($file_info["tmp_name"], $path_big)) {
-//            self::image_resize($path_big, $path_big, 750, 468, 100);
-//            self::image_resize($path_small, $path_big, 250, 156, 100);
-//        }
-//
+        if ($file_info) {
+            //удалим старый файл
+            self::delete_photo($id);
+            //добавим новый
+            $result['photo'] = self::add_photo($id, $file_info);
+        }
         return $result;//ошибок не было
     }
 
@@ -166,5 +130,40 @@ class ItemsModel
         imagejpeg($im1, $outfile, $quality);
         imagedestroy($im);
         imagedestroy($im1);
+    }
+
+    //удаление фоток
+    private static function delete_photo($id)
+    {
+        $query = 'SELECT filename FROM items WHERE id=:id';
+        $old_name = Db::getInstance()->select($query, ['id' => $id])[0]['filename'];
+        $old_path_small = Config::get('photo-small') . '/' . $old_name;
+        $old_path_big = Config::get('photo-big') . '/' . $old_name;
+        if (file_exists($old_path_small))
+            unlink($old_path_small);
+        if (file_exists($old_path_big))
+            unlink($old_path_big);
+    }
+
+    //добавление фоток
+    private static function add_photo($id, $file_info)
+    {
+        //сгенерируем пути
+        $url_name = self::get_url_name($file_info['name']);
+        $full_name = "/$id-$url_name";
+        $path_small = Config::get('photo-small') . $full_name;
+        $path_big = Config::get('photo-big') . $full_name;
+
+        //добавим имя файла в БД
+        $query = 'UPDATE items SET filename=:filename WHERE id=:id';
+        Db::getInstance()->update($query, ['filename' => $full_name, 'id' => $id]);
+
+        //переместим файл и создадим уменьшенную копию не более 250*156 пикселей
+        //а обычную уменьшим до 750*468
+        if (move_uploaded_file($file_info["tmp_name"], $path_big)) {
+            self::image_resize($path_big, $path_big, 750, 468, 100);
+            self::image_resize($path_small, $path_big, 250, 156, 100);
+        }
+        return $full_name;
     }
 }
