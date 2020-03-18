@@ -1,40 +1,26 @@
-<div class="modal hidden order-modal" id="modal" style="display: block;">
-    <button class="modal-close" id="modal-close">X</button>
-    <h3 class="form-heading">Детали заказа</h3>
-    <table class="order-table order-table-modal">
-        <tbody>
-        <tr>
-            <th class="table-heading order-first-column">Наименование</th>
-            <th class="table-heading order-column">Количество</th>
-            <th class="table-heading order-column">Цена</th>
-            <th class="table-heading order-column">Сумма</th>
-            <th class="table-heading order-column">Скидка</th>
-            <th class="table-heading">Сумма с учётом скидки</th>
-        </tr>
-        <tr>
-            <td class="table-cell table-cell-text">Castlevania II</td>
-            <td class="table-cell table-cell-text">3</td>
-            <td class="table-cell table-cell-text">256 руб.</td>
-            <td class="table-cell table-cell-text">768 руб.</td>
-            <td class="table-cell table-cell-text">0 %</td>
-            <td class="table-cell table-cell-text">768 руб.</td>
-        </tr>
-        <tr>
-            <td class="table-cell table-cell-text">Castlevania Rondo of Blood</td>
-            <td class="table-cell table-cell-text">2</td>
-            <td class="table-cell table-cell-text">8192 руб.</td>
-            <td class="table-cell table-cell-text">16384 руб.</td>
-            <td class="table-cell table-cell-text">0 %</td>
-            <td class="table-cell table-cell-text">16384 руб.</td>
-        </tr>
-        <tr class="order-last-row">
-            <td class="table-cell table-cell-text" colspan="5">Скидка за покупку двух игр (10%)</td>
-            <td class="table-cell table-cell-text">-1715.20 руб.</td>
-        </tr>
-        <tr class="order-last-row">
-            <td class="table-cell table-cell-text" colspan="5">Сумма к оплате</td>
-            <td class="table-cell table-cell-text">15436.80 руб.</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<button class="modal-close" id="modal-close">X</button>
+<h3 class="form-heading">Детали заказа</h3>
+{#        <pre> {{ dump(content_data) }} </pre>#}
+<table class="order-table order-table-modal">
+    <tbody>
+    <tr>
+        <th class="table-heading order-first-column">Наименование</th>
+        <th class="table-heading order-column">Количество</th>
+        <th class="table-heading order-column">Цена</th>
+        <th class="table-heading order-column">Сумма</th>
+        <th class="table-heading order-column">Скидка</th>
+        <th class="table-heading">Сумма с учётом скидки</th>
+    </tr>
+    {% for item in content_data.cart %}
+        {% include 'admin/orders/show_order.twig' %}
+    {% endfor %}
+    {#        <tr class="order-last-row">#}
+    {#            <td class="table-cell table-cell-text" colspan="5">Скидка за покупку двух игр (10%)</td>#}
+    {#            <td class="table-cell table-cell-text">-1715.20 руб.</td>#}
+    {#        </tr>#}
+    <tr class="order-last-row">
+        <td class="table-cell table-cell-text" colspan="5">Сумма к оплате</td>
+        <td class="table-cell table-cell-text">{{ content_data.total }} руб.</td>
+    </tr>
+    </tbody>
+</table>

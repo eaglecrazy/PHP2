@@ -132,7 +132,6 @@ class CartModel
         return $result;
     }
 
-
     //возвращает массив с данными для построения старничек "корзина" и "заказ"
     public static function get_items($order_id = -1, $client_id = null)
     {

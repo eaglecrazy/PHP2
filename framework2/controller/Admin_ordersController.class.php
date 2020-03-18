@@ -28,8 +28,12 @@ class Admin_ordersController extends Controller
 
     public function show($data){
         $client_id = OrderModel::get_client_id($data['id']);
-        $cart =  CartModel::get_items($data['id']);
-        $cart =  CartModel::get_items($data['id']);
+        $cart =  CartModel::get_items($data['id'], $client_id);
+        return ['cart' => $cart, 'total' => CartModel::get_total_count_cost_render($cart)['total_cost']];
+    }
 
+    public function change($data){
+        $info = json_decode($data['data']);
+        echo 1;
     }
 }
