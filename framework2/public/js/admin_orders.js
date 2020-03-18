@@ -17,15 +17,12 @@ $('.table-control').change((e) => {
             data: data,
             dataType: 'text',
             success: (page) => {
+                if ($modal.text())
+                    $modal.text('');
                 const T = 1500;
                 $modal.append(page);
                 $modal.fadeIn(0);
                 $modal.fadeOut(T);
-                $button_add.prop("disabled", true);
-                setTimeout(() => {
-                    $button_add.prop("disabled", false);
-                }, T);
-                $modal.text('');
             },
             fail: () => {
                 alert('Не удалось изменить статус заказа');

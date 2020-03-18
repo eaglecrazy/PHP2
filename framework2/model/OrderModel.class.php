@@ -57,4 +57,14 @@ class OrderModel
         $query = 'SELECT client_id FROM orders WHERE id=:id';
         return Db::getInstance()->select($query, ['id' => $id])[0]['client_id'];
     }
+
+    public static function change_status($id, $status){
+        $query = 'UPDATE orders SET order_status=:order_status WHERE id=:id';
+        Db::getInstance()->update($query, ['order_status' => $status, 'id' => $id]);
+    }
+
+    public static function delete($id){
+        $query = 'DELETE FROM orders WHERE id=:id';
+        Db::getInstance()->delete($query, ['id' => $id]);
+    }
 }
