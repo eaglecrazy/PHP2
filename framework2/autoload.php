@@ -10,10 +10,7 @@ function gbStandardAutoload($className)
     //директории где лежат классы
     $dirs = [
         'controller',
-//        'data/migrate',
         'lib',
-//        'lib/smarty',
-//        'lib/commands',
         'model'
     ];
     $found = false;

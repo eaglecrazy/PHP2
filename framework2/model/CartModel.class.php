@@ -48,7 +48,6 @@ class CartModel
         }
     }
 
-
     //удаляем товар из корзины
     public static function delete_item($item_id)
     {

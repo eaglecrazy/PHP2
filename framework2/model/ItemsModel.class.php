@@ -156,7 +156,7 @@ class ItemsModel
     {
         //сгенерируем пути
         $url_name = self::get_url_name($file_info['name']);
-        $full_name = "/$id-$url_name";
+        $full_name = "$id-$url_name";
         $path_small = Config::get('photo-small') . $full_name;
         $path_big = Config::get('photo-big') . $full_name;
 

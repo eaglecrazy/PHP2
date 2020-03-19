@@ -49,6 +49,8 @@ class Db
 
     private static function sql($sql, $args = [])
     {
+//        if(self::$db === null)
+//            self::$db = self::getInstance();
         $query = self::$db->prepare($sql);
         $query->execute($args);
         return $query;

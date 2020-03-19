@@ -15,7 +15,7 @@
             <textarea class="form-items-input" cols="30" rows="10" id="description" name="description" required >{{ content_data.description }}</textarea>
 
             <label class="form-items-label" id="l-photo" for="photo">Фотография товара</label>
-            <img alt="photo {{ content_data.name }}" class="margin15" id="item-photo" src="../templates/img/small{{ content_data.filename }}">
+            <img alt="photo {{ content_data.name }}" class="margin15" id="item-photo" src="../templates/img/small/{{ content_data.filename }}">
 
             <input class="form-items-input form-items-input-file" id="photo" name="photo" required type="file">
             <input class="form-items-input button" type="submit" value="Сохранить" id="submit">

@@ -13,8 +13,8 @@ $config['link_cart'] = $config['link-index'] . '?path=cart';
 //пути
 $config['path_root'] = __DIR__;
 $config['path_templates'] = $config['path_root'] . '/../templates';
-$config['photo-small'] = $config['path_templates'] . '/img/small';
-$config['photo-big'] = $config['path_templates'] . '/img/big';
+$config['photo-small'] = $config['path_templates'] . '/img/small/';
+$config['photo-big'] = $config['path_templates'] . '/img/big/';
 
 
 //скрипты

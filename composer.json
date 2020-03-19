@@ -11,6 +11,8 @@
   ],
   "require": {
     "twig/twig": "2.x-dev",
-    "ext-json": "*"
+    "ext-json": "*",
+    "phpunit/phpunit": "8.3.5",
+    "ext-pdo": "*"
   }
 }

@@ -1,8 +1,8 @@
 <?php
-
+define('SALT', 'asdg452sdacvdfb3q54r');
 class UserModel
 {
-    private const SALT = 'asdg452sdacvdfb3q54r';
+//    private const SALT = 'asdg452sdacvdfb3q54r';
 
     //возвращает роль юзера
     public static function get_role($login)
@@ -104,7 +104,7 @@ class UserModel
     //шифрование пароля
     private static function encryption($str)
     {
-        return md5($str . self::SALT);
+        return md5($str . SALT);
     }
 }
 

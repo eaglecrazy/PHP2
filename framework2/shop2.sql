@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 17 2020 г., 20:50
--- Версия сервера: 5.6.43
+-- Время создания: Мар 19 2020 г., 18:39
+-- Версия сервера: 10.3.13-MariaDB
 -- Версия PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -33,7 +33,7 @@ CREATE TABLE `cart` (
   `client_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `count` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL DEFAULT '-1'
+  `order_id` int(11) NOT NULL DEFAULT -1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -41,9 +41,12 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `client_id`, `item_id`, `count`, `order_id`) VALUES
-(51, 1, 1, 10, 19),
-(52, 36, 3, 1, 20),
-(53, 36, 2, 2, 20);
+(49, 1, 1, 1, 17),
+(50, 1, 2, 2, 17),
+(51, 35, 1, 2, 18),
+(52, 35, 3, 3, 18),
+(53, 1, 7, 1, -1),
+(54, 35, 4, 1, 19);
 
 -- --------------------------------------------------------
 
@@ -57,7 +60,7 @@ CREATE TABLE `items` (
   `description` text NOT NULL,
   `cost` int(11) NOT NULL,
   `filename` varchar(255) NOT NULL,
-  `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `datetime` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -65,10 +68,13 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`id`, `name`, `description`, `cost`, `filename`, `datetime`) VALUES
-(1, 'Castlevania', 'Игра для NES', 4, '/1-1.jpg', '2020-03-07 13:05:20'),
-(2, 'Castlevania II', 'Игра для NES', 8, '/2-2.jpg', '2020-03-07 13:06:15'),
-(3, 'Castlevania III', 'Игра для NES', 16, '/3-3.jpg', '2020-03-07 13:06:25'),
-(18, 'Castlevania Dracula X', 'Игра для SNES', 32, '/18-6draculax.jpg', '2020-03-17 18:57:19');
+(1, 'Castlevania', 'Игра для NES', 4, '1-1.jpg', '2020-03-07 13:05:20'),
+(2, 'Castlevania II', 'Игра для NES', 8, '2-2.jpg', '2020-03-07 13:06:15'),
+(3, 'Castlevania III', 'Игра для NES', 16, '3-3.jpg', '2020-03-07 13:06:25'),
+(4, 'Super Castlevania IV', 'Игра для SNES', 32, '4-4.jpg', '2020-03-15 22:24:07'),
+(5, 'Castlevania Bloodlines', 'Игра для Sega', 64, '5-5.jpg', '2020-03-15 22:25:11'),
+(6, 'Castlevania Dracula X', 'Игра для SNES', 128, '18-6draculax.jpg', '2020-03-17 10:11:35'),
+(7, 'Castlevania Symphony of the Night', 'Игра для Sony PS', 256, '7-8.jpg', '2020-03-19 18:37:17');
 
 -- --------------------------------------------------------
 
@@ -78,13 +84,13 @@ INSERT INTO `items` (`id`, `name`, `description`, `cost`, `filename`, `datetime`
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `total_cost` float NOT NULL DEFAULT '0',
+  `total_cost` double NOT NULL DEFAULT 0,
   `client_id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `adress` text NOT NULL,
   `comment` text NOT NULL,
-  `order_status` tinyint(1) NOT NULL DEFAULT '0'
+  `order_status` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -92,8 +98,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `total_cost`, `client_id`, `name`, `phone`, `adress`, `comment`, `order_status`) VALUES
-(19, 40, '1', 'Саймон', '1234567890', 'На деревню дедушке.', 'Срочно.', 0),
-(20, 32, '36', 'Бельмонт', '987654321', 'Трансильвания, замок Дракулы', 'Не горит.', 0);
+(17, 20, '1', 'Антон', '12345656789', 'На деревню дедушке', 'Срочно', 0),
+(18, 56, '35', 'Вася', '1111222333212', 'Без адреса', 'Без комментариев', 1);
 
 -- --------------------------------------------------------
 
@@ -116,7 +122,7 @@ INSERT INTO `users` (`id`, `login`, `password`, `role`) VALUES
 (1, 'admin', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'admin'),
 (2, 'user', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user'),
 (34, 'логин', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user'),
-(36, 'master', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user');
+(35, 'master', '35cc8a561c5d0991a62c94e6f4ca5cc8', 'user');
 
 --
 -- Индексы сохранённых таблиц
@@ -155,25 +161,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT для таблицы `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

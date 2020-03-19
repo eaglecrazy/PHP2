@@ -1,6 +1,7 @@
 <?php
 require_once 'autoload.php';
 
+
 try{
     App::init();
 }
