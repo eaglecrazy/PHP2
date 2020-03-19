@@ -1,0 +1,39 @@
+<main class="main"><h2 class="goods-item-heading">Ваш заказ:</h2>
+    <table class="order-table">
+        <tr>
+            <th class="table-heading order-first-column">Наименование</th>
+            <th class="table-heading order-column">Количество</th>
+            <th class="table-heading order-column">Цена</th>
+            <th class="table-heading order-column">Сумма</th>
+            <th class="table-heading order-column">Скидка</th>
+            <th class="table-heading">Сумма с учётом скидки</th>
+        </tr>
+        {% for item in content_data.cart %}
+            {% include 'order/orderitem.twig' %}
+        {% endfor %}
+        <tr class="order-last-row">
+            <td class="table-cell table-cell-text" colspan="5">Сумма к оплате</td>
+            <td class="table-cell table-cell-text">{{ content_data.total_cost }} руб.</td>
+        </tr>
+    </table>
+    <form class="form-order" action="index.php?path=order/add" method="POST" enctype="multipart/form-data">
+        <div>
+            <h2 class="form-heading">Контактные данные</h2>
+            {% if login is null %}
+                <label class="form-registration-label" for="login">Логин</label>
+                <input type="text" name="login" id="input-login" class="form-order-input" required>
+                <label class="form-registration-label" for="password">Пароль</label>
+                <input type="text" name="password" id="input-password" class="form-order-input" required>
+            {% endif %}
+            <label class="form-registration-label" for="name">Имя получателя</label>
+            <input type="text" name="name" id="input-name" class="form-order-input" required>
+            <label class="form-registration-label" for="phone">Телефон</label>
+            <input type="text" name="phone" id="input-phone" class="form-order-input" required>
+            <label class="form-registration-label" for="adress">Адрес</label>
+            <textarea name="adress" id="input-adress" cols="30" rows="3" class="form-order-input order-textarea" required></textarea>
+            <label class="form-registration-label" for="comment">Комментарий к заказу</label>
+            <textarea name="comment" id="input-comment" cols="30" rows="3" class="form-order-input order-textarea"></textarea>
+            <input type="submit" value="Заказать" class="button order-button" id="button-order">
+        </div>
+    </form>
+</main>

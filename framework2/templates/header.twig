@@ -1,0 +1,23 @@
+<header class="header">
+    {% if login != null %}
+        <div class="user-info-wrap">
+            <div class="user-info">{{ login }}</div>
+        </div>
+    {% endif %}
+    <div class="menuLeft">
+        <a href="{{ header_links.index }}" class="button indexButton">Магазин</a>
+        <a href="#" class="button formButton hidden">Обратная связь</a>
+    </div>
+    <div class="menu-right">
+        <form class="form-search hidden"><input type="text" placeholder="">
+            <button class="button">Поиск</button>
+        </form>
+        <a href="{{ header_links.cart }}" class="button header-button">Корзина</a>
+        {% if login == null %}
+            <button class="button header-button" id="button-enter">Вход</button>
+        {% else %}
+            <a href="index.php?path=user/exit" class="button header-button">Выход</a>
+        {% endif %}
+    </div>
+    <div class="modal hidden" id="modal"></div>
+</header>

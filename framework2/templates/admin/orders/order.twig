@@ -1,0 +1,22 @@
+<tr>
+    <td class="table-cell table-cell-text ">{{ order.id }}</td>
+    <td class="table-cell table-cell-control">
+        <button class="button-table-control" id="{{ order.id }}">Детали заказа</button>
+    </td>
+    <td class="table-cell table-cell-text ">{{ order.total_cost }} руб.</td>
+    <td class="table-cell table-cell-text">{{ order.name }}</td>
+    <td class="table-cell table-cell-text">{{ order.adress }}</td>
+    <td class="table-cell table-cell-text">{{ order.phone }}</td>
+    <td class="table-cell table-cell-text">{{ order.comment }}</td>
+    <td class="table-cell table-cell-control">
+        <select name="status" id="status-{{ order.id }}" class="table-control">
+            <option value="0" {% if order.order_status == 0 %} selected {% endif %}>активен</option>
+            <option value="1" {% if order.order_status == 1 %} selected {% endif %}>завершён</option>
+        </select>
+    </td>
+    <td class="table-cell table-cell-delete">
+        <a class="table-link-delete" href="index.php?path=admin_orders/delete/{{ order.id }}">
+            <img src="../templates/img/delete.png" alt="delete">
+        </a>
+    </td>
+</tr>

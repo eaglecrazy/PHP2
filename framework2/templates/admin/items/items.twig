@@ -1,0 +1,40 @@
+<main class="main">
+    <div class="form-wrap">
+        {% if content_data.result == 'error' %}
+            <h2 class="form-heading">Товар с таким именем уже существует.</h2>
+        {% elseif content_data.result == 'ok' %}
+            <h2 class="form-heading">Товар добавлен.</h2>
+        {% else %}
+            <h2 class="form-heading">Добавление товара</h2>
+        {% endif %}
+        <form class="form-admin-items" action="index.php?path=admin_items/add" method="POST"
+              enctype="multipart/form-data">
+            <label class="form-items-label" for="name">Наименование товара</label>
+            <input type="text" name="name" id="name" class="form-items-input" required>
+            <label class="form-items-label" for="cost">Стоимость товара</label>
+            <input type="number" name="cost" id="cost" class="form-items-input" min="0" required>
+            <label class="form-items-label" for="description">Описание товара</label>
+            <textarea name="description" id="description" cols="30" rows="10" class="form-items-input"
+                      required></textarea>
+            <label class="form-items-label" for="photo">Загрузка фотографии</label>
+            <input type="file" name="photo" id="photo" class="form-items-input form-items-input-file"
+                   accept="image/jpeg" required>
+            <input type="submit" value="Добавить товар" class="form-items-input button">
+        </form>
+    </div>
+    <div class="table-wrapper">
+        <table class="items-table">
+            <tr>
+                <th class="table-heading">Наименование</th>
+                <th class="table-heading">Стоимость</th>
+                <th class="table-heading">Описание</th>
+                <th class="table-heading">Фото</th>
+                <th class="table-heading">Изменить</th>
+                <th class="table-heading">Удалить</th>
+            </tr>
+            {% for item in content_data.items %}
+                {% include 'admin/items/item.twig' %}
+            {% endfor %}
+        </table>
+    </div>
+</main>

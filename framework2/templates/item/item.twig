@@ -1,0 +1,11 @@
+<main class="main">
+    <article class="item-wrap">
+        <div class="item-info-wrap">
+            <h2 class="item-info-heading">{{ content_data['name'] }}</h2>
+            <p class="item-info-description">{{ content_data['description'] }}</p>
+            <span class="item-info-cost">{{ content_data['cost'] }} руб.</span>
+            <button class="button item-info-button" id="{{ content_data['id'] }}">Добавить в корзину</button>
+        </div>
+        <img src="../templates/img/big/{{ content_data['filename'] }}" width="748" height="472">
+    </article>
+</main>

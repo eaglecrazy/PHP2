@@ -1,0 +1,17 @@
+<tr>
+    <td class="table-cell table-cell-text">{{ item['name'] }}</td>
+    <td class="table-cell table-cell-text">{{ item['cost'] }}</td>
+    <td class="table-cell table-cell-text">{{ item['description'] }}</td>
+    <td class="table-cell table-cell-image"><img src="../templates/img/small/{{ item['filename'] }}" alt="photo {{ item['name'] }}">
+    </td>
+    <td class="table-cell table-cell-edit">
+        <a class="table-link-edit" href="index.php?path=admin_items/edit/{{ item['id'] }}">
+            <img src="../templates/img/edit.png" alt="edit">
+        </a>
+    </td>
+    <td class="table-cell table-cell-delete">
+        <a class="table-link-delete" href="index.php?path=admin_items/delete/{{ item['id'] }}">
+            <img src="../templates/img/delete.png" alt="delete">
+        </a>
+    </td>
+</tr>
